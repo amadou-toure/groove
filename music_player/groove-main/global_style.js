@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 const Main_color = {
 	Primary_color: "#EBE6E4",
 	Secondary_color: "#FF7878", //active bottom navigation tab color
-	Third_color: "#7D7D7D", //grey bottom nav color
+	Third_color: "#343434", //"#7D7D7D", //grey bottom nav color
 	bg_color: "#000",
 };
 const styles = StyleSheet.create({

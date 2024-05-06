@@ -18,7 +18,7 @@ const Tab = createMaterialBottomTabNavigator();
 export default function () {
 	return (
 		<Tab.Navigator
-			initialRouteName="Home"
+			initialRouteName="Track"
 			labeled={false}
 			barStyle={{
 				marginLeft: 10,
@@ -27,8 +27,9 @@ export default function () {
 				borderRadius: 30,
 				position: "absolute",
 				overflow: "hidden",
+				opacity: 0.8,
 				backgroundColor: Main_color.Third_color,
-				tabBarBackground: () => <BlurView tint="light" intensity={100} />,
+				tabBarBackground: () => <BlurView tint="dark" intensity={50} />,
 			}}
 			screenOptions={({ route }) => ({
 				tabBarActiveTintColor: "#FF7878",

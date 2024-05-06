@@ -1,13 +1,10 @@
-import { Text, View } from "react-native";
-import React, { Component } from "react";
-import { styles } from "../../global_style";
+import { View, Text } from "react-native";
+import React from "react";
 
-export default class Favorite extends Component {
-	render() {
-		return (
-			<View style={{ marginTop: 50 }}>
-				<Text>Favorite</Text>
-			</View>
-		);
-	}
+export default function Favorite() {
+	return (
+		<View>
+			<Text>Favorite</Text>
+		</View>
+	);
 }
