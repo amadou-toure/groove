@@ -9,7 +9,13 @@ import library from "../../assets/data/Library.json";
 const Track_list_item = ({ navigation, Artwork, Title, Artist }) => {
 	return (
 		<Pressable
-			onPress={() => navigation.navigate("Player")}
+			onPress={() =>
+				navigation.navigate("Player", {
+					Artwork: Artwork,
+					Title: Title,
+					Artist: Artist,
+				})
+			}
 			style={{
 				display: "flex",
 				flexDirection: "row",
@@ -22,7 +28,7 @@ const Track_list_item = ({ navigation, Artwork, Title, Artist }) => {
 		>
 			{Artwork ? (
 				<Image
-					style={{ width: 60, height: 60, borderRadius: 30, marginRight: 20 }}
+					style={{ width: 60, height: 60, borderRadius: 15, marginRight: 20 }}
 					source={{ uri: Artwork }}
 				/>
 			) : (

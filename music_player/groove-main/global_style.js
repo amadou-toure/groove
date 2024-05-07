@@ -32,6 +32,30 @@ const styles = StyleSheet.create({
 		fontWeight: "300",
 		textAlign: "left",
 	},
+	Player: {
+		flex: 1,
+		display: "flex",
+		flexDirection: "column",
+		backgroundColor: Main_color.bg_color,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	Player_control: {
+		display: "flex",
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-around",
+		width: "80%",
+		flex: 0.2,
+	},
+	Track_info: {
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		justifyContent: "space-around",
+		width: "100%",
+		flex: 0.7,
+	},
 });
 
 export { styles, Main_color };
