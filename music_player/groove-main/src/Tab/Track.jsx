@@ -1,21 +1,33 @@
 import { Text, View, FlatList, Image, Pressable } from "react-native";
 import { SafeAreaView } from "react-native";
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { styles, Main_color } from "../../global_style";
 import no_artwork from "../../assets/images/no_artwork.png";
-//import { exImage } from "expo-image";
 import library from "../../assets/data/Library.json";
+import {
+	Play,
+	load_sound,
+	unload_sound,
+	useSong,
+} from "../Service/Player_service";
 
-const Track_list_item = ({ navigation, Artwork, Title, Artist }) => {
+const Track_list_item = ({ navigation, Artwork, Title, Artist, Url }) => {
+	const [Song, setSong] = useSong();
+	const handlePress = async () => {
+		unload_sound(Song).then(
+			load_sound(
+				{ artwork: Artwork, title: Title, artist: Artist, url: Url },
+				Song,
+				setSong
+			).then(Play(Song))
+		);
+
+		//console.log(Song);
+		//navigation.navigate("Player");
+	};
 	return (
 		<Pressable
-			onPress={() =>
-				navigation.navigate("Player", {
-					Artwork: Artwork,
-					Title: Title,
-					Artist: Artist,
-				})
-			}
+			onPress={() => handlePress()}
 			style={{
 				display: "flex",
 				flexDirection: "row",
@@ -64,6 +76,7 @@ export default Track = ({ navigation }) => {
 						Title={item.title}
 						Artist={item.artist}
 						Artwork={item.artwork}
+						Url={item.url}
 					/>
 				)}
 			/>

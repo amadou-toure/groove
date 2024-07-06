@@ -8,6 +8,7 @@ import Player from "./Player";
 import Detail from "./Detail";
 
 const Stack = createNativeStackNavigator();
+
 export default function index() {
 	return (
 		<NavigationContainer style={styles.container}>

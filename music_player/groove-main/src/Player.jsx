@@ -3,12 +3,13 @@ import React from "react";
 import { styles, Main_color } from "../global_style";
 import { Ionicons } from "@expo/vector-icons";
 import no_artwork from "../assets/images/no_artwork.png";
-
+import Slider from "./custom_components/Track_slider";
 export default function Player({ navigation, route }) {
 	const { Artwork, Title, Artist } = route.params;
 	const button_size = 32;
 	const [isPlaying, setIsPlaying] = React.useState(false);
 	const [isLiked, setIsLiked] = React.useState(false);
+
 	return (
 		<View style={styles.Player}>
 			<View style={styles.Track_info}>
@@ -62,6 +63,7 @@ export default function Player({ navigation, route }) {
 						/>
 					</Pressable>
 				</View>
+				<Slider />
 			</View>
 			<View style={styles.Player_control}>
 				<Pressable onPress={() => console.log("Shuffle")}>
@@ -73,7 +75,7 @@ export default function Player({ navigation, route }) {
 				</Pressable>
 				<Pressable onPress={() => console.log("Skip-back")}>
 					<Ionicons
-						name="play-skip-back-outline"
+						name="play-skip-back"
 						size={button_size}
 						color={Main_color.Third_color}
 					/>
@@ -96,7 +98,7 @@ export default function Player({ navigation, route }) {
 				</Pressable>
 				<Pressable onPress={() => console.log("Skip-forward")}>
 					<Ionicons
-						name="play-skip-forward-outline"
+						name="play-skip-forward"
 						size={button_size}
 						color={Main_color.Third_color}
 					/>

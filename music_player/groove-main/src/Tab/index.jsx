@@ -3,9 +3,8 @@ import Home from "./Home.jsx";
 import Setting from "./Setting.jsx";
 import Track from "./Track.jsx";
 import Favorite from "./Favorite.jsx";
-import { styles, Main_color } from "../../global_style.js";
+import { Main_color } from "../../global_style.js";
 import { Ionicons } from "@expo/vector-icons";
-import { Image } from "react-native";
 import { getHeaderTitle } from "@react-navigation/elements";
 
 header: ({ navigation, route, options }) => {
