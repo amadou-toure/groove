@@ -3435,6 +3435,11 @@ expo-asset@~9.0.2:
     invariant "^2.2.4"
     md5-file "^3.2.3"
 
+expo-audio-hooks@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/expo-audio-hooks/-/expo-audio-hooks-1.0.3.tgz#b232d7d11a280142b0ac21a371ba7376f0b0f8a8"
+  integrity sha512-0NlZyzpP+7fKtyJxsl7LoVt+5DfwkRVmAZXYoStiAz1oQjCSiJDrDnXp9KHHvTfXKql3Uxq8PAt640u5SYZLfQ==
+
 expo-av@~13.10.6:
   version "13.10.6"
   resolved "https://registry.yarnpkg.com/expo-av/-/expo-av-13.10.6.tgz#ca1b5d0c46a016069f653c1740a25516ffc730a2"

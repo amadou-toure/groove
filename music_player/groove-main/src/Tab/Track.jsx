@@ -3,31 +3,35 @@ import { SafeAreaView } from "react-native";
 import React, { Component, useContext } from "react";
 import { styles, Main_color } from "../../global_style";
 import no_artwork from "../../assets/images/no_artwork.png";
+import useAudio from "expo-audio-hooks";
 import library from "../../assets/data/Library.json";
-import {
-	Play,
-	load_sound,
-	unload_sound,
-	useSong,
-} from "../Service/Player_service";
+import { unload_sound } from "../Service/Player_service";
 
-const Track_list_item = ({ navigation, Artwork, Title, Artist, Url }) => {
-	const [Song, setSong] = useSong();
-	const handlePress = async () => {
-		unload_sound(Song).then(
-			load_sound(
-				{ artwork: Artwork, title: Title, artist: Artist, url: Url },
-				Song,
-				setSong
-			).then(Play(Song))
-		);
+const Track_list_item = ({ index, Artwork, Title, Artist, Url }) => {
+	const { isLoadingAudio, isPlaying, setIsPlaying } = useAudio({
+		uri: Url,
+	});
+	const [songIndex, setSongIndex] = React.useState(0);
 
-		//console.log(Song);
-		//navigation.navigate("Player");
+	const handlePress = (index) => {
+		setSongIndex(index);
+		isPlaying ? setIsPlaying(false) : setIsPlaying(true);
+
+		// while (isLoadingAudio) {
+		// 	console.log("loading");
+		// }
+		// console.log(isLoadingAudio);
+		// console.log("done");
+
+		//console.log(isPlaying);
+	};
+	const unload = () => {
+		setIsPlaying(false);
+		console.log("unloading");
 	};
 	return (
 		<Pressable
-			onPress={() => handlePress()}
+			onPress={() => handlePress(index)}
 			style={{
 				display: "flex",
 				flexDirection: "row",
@@ -57,11 +61,15 @@ const Track_list_item = ({ navigation, Artwork, Title, Artist, Url }) => {
 					<Text style={styles.Secondary_text}>Unknown</Text>
 				)}
 			</View>
+			<Pressable onPress={() => unload()}>
+				<Text style={styles.Secondary_text}>Unload</Text>
+			</Pressable>
 		</Pressable>
 	);
 };
 
 export default Track = ({ navigation }) => {
+	const songList = library;
 	return (
 		<SafeAreaView style={styles.container}>
 			<Text style={[styles.Title_text, { flex: 0.15, width: "90%" }]}>
@@ -69,14 +77,14 @@ export default Track = ({ navigation }) => {
 			</Text>
 			<FlatList
 				style={{ flex: 0.9 }}
-				data={library}
+				data={songList}
 				renderItem={({ item }) => (
 					<Track_list_item
-						navigation={navigation}
 						Title={item.title}
 						Artist={item.artist}
 						Artwork={item.artwork}
 						Url={item.url}
+						index={songList.indexOf(item)}
 					/>
 				)}
 			/>

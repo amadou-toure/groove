@@ -1,9 +1,4 @@
-import React from "react";
-import { View, StyleSheet, Button } from "react-native";
 import { Audio } from "expo-av";
-import Library from "../../assets/data/Library.json";
-import react from "react";
-import { createContext, useState } from "react";
 import { createGlobalState } from "react-hooks-global-states";
 
 const useSong = createGlobalState({});
