@@ -14,16 +14,10 @@ const Track_list_item = ({ index, Artwork, Title, Artist, Url }) => {
 	const [songIndex, setSongIndex] = React.useState(0);
 
 	const handlePress = (index) => {
+		//if i use unload in a pressable, it works and stops the current playing song, but in this function it seems not to work
+		unload();
 		setSongIndex(index);
-		isPlaying ? setIsPlaying(false) : setIsPlaying(true);
-
-		// while (isLoadingAudio) {
-		// 	console.log("loading");
-		// }
-		// console.log(isLoadingAudio);
-		// console.log("done");
-
-		//console.log(isPlaying);
+		setIsPlaying(true);
 	};
 	const unload = () => {
 		setIsPlaying(false);
@@ -61,9 +55,6 @@ const Track_list_item = ({ index, Artwork, Title, Artist, Url }) => {
 					<Text style={styles.Secondary_text}>Unknown</Text>
 				)}
 			</View>
-			<Pressable onPress={() => unload()}>
-				<Text style={styles.Secondary_text}>Unload</Text>
-			</Pressable>
 		</Pressable>
 	);
 };
