@@ -5,24 +5,25 @@ import { styles, Main_color } from "../../global_style";
 import no_artwork from "../../assets/images/no_artwork.png";
 import useAudio from "expo-audio-hooks";
 import library from "../../assets/data/Library.json";
-import { unload_sound } from "../Service/Player_service";
+import Bottom_Player from "../custom_components/Bottom_Player";
 
 const Track_list_item = ({ index, Artwork, Title, Artist, Url }) => {
-	const { isLoadingAudio, isPlaying, setIsPlaying } = useAudio({
+	const { isLoadingAudio, isPlaying, setIsPlaying, unload } = useAudio({
 		uri: Url,
 	});
-	const [songIndex, setSongIndex] = React.useState(0);
+	const [songIndex, setSongIndex] = React.useState(-1);
 
-	const handlePress = (index) => {
+	const handlePress = async (index) => {
 		//if i use unload in a pressable, it works and stops the current playing song, but in this function it seems not to work
-		unload();
-		setSongIndex(index);
-		setIsPlaying(true);
+		if (isPlaying === true) {
+			await unload();
+			isPlaying ? console.log("playing") : console.log("still not playing");
+		} else {
+			console.log("not playing");
+			setIsPlaying(true);
+		}
 	};
-	const unload = () => {
-		setIsPlaying(false);
-		console.log("unloading");
-	};
+
 	return (
 		<Pressable
 			onPress={() => handlePress(index)}
@@ -78,6 +79,11 @@ export default Track = ({ navigation }) => {
 						index={songList.indexOf(item)}
 					/>
 				)}
+			/>
+			<Bottom_Player
+				Title={item.title}
+				Artist={item.artist}
+				Artwork={item.artwork}
 			/>
 		</SafeAreaView>
 	);

@@ -40,6 +40,14 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 	},
+	bottom_player: {
+		flex: 0.3,
+		display: "flex",
+		flexDirection: "row",
+		backgroundColor: "none",
+		alignItems: "center",
+		justifyContent: "center",
+	},
 	Player_control: {
 		display: "flex",
 		flexDirection: "row",
