@@ -4,12 +4,13 @@ import React, { Component, useContext, useState } from "react";
 import { styles, Main_color } from "../../global_style";
 import no_artwork from "../../assets/images/no_artwork.png";
 import { Audio } from "expo-av";
-import useAudio from "expo-audio-hooks";
 import library from "../../assets/data/Library.json";
+import Bottom_Player from "../custom_components/Bottom_Player";
 
-export default Track = () => {
+export default Track = ({ navigation }) => {
 	const song = new Audio.Sound();
 	const songList = library;
+	const [index, setIndex] = useState(0);
 	const getTrackUrl = (item) => {
 		return songList[songList.indexOf(item)].url;
 	};
@@ -19,26 +20,20 @@ export default Track = () => {
 	const unloadUrl = async () => {
 		await song.unloadAsync();
 	};
+	const next = () => {};
 	const handlePress = async (item) => {
 		unloadUrl();
+		navigation.navigate("Player", {
+			Artist: item.artist,
+			Artwork: item.artwork,
+			Title: item.title,
+		});
 		if (song._loaded != true) {
-			console.log("loading...");
 			await loadUrl(getTrackUrl(item));
 			await song.playAsync();
 		} else {
 			await song.playAsync();
 		}
-		// const { isLoadingAudio, isPlaying, setIsPlaying } = useAudio({
-		// 	uri:
-		// });
-		// //if i use unload in a pressable, it works and stops the current playing song, but in this function it seems not to work
-		// if (isPlaying === true) {
-		// 	setIsPlaying === false;
-		// 	isPlaying ? console.log("playing") : console.log("still not playing");
-		// } else {
-		// 	console.log("not playing");
-		// 	setIsPlaying(true);
-		// }
 	};
 	return (
 		<SafeAreaView style={styles.container}>
@@ -93,11 +88,6 @@ export default Track = () => {
 					</Pressable>
 				)}
 			/>
-			{/* <Bottom_Player
-				Title={item.title}
-				Artist={item.artist}
-				Artwork={item.artwork}
-			/> */}
 		</SafeAreaView>
 	);
 };

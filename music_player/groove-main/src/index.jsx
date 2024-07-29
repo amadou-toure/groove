@@ -14,8 +14,10 @@ export default function index() {
 		<NavigationContainer style={styles.container}>
 			<Stack.Navigator screenOptions={{ headerShown: false }}>
 				<Stack.Screen name="Tab" component={Bottom_tab} />
-				<Stack.Screen name="Player" component={Player} />
 				<Stack.Screen name="Detail" component={Detail} />
+				<Stack.Group screenOptions={{ presentation: "modal" }}>
+					<Stack.Screen name="Player" component={Player} />
+				</Stack.Group>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

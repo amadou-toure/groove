@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 		display: "flex",
 		flexDirection: "column",
 		backgroundColor: Main_color.bg_color,
-		alignItems: "center",
+		alignItems: "flex-end",
 		justifyContent: "center",
 	},
 	bottom_player: {
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		backgroundColor: "none",
 		alignItems: "center",
-		justifyContent: "center",
+		justifyContent: "space-between",
 	},
 	Player_control: {
 		display: "flex",
