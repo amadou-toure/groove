@@ -3,12 +3,22 @@ import React from "react";
 import { styles, Main_color } from "../global_style";
 import { Ionicons } from "@expo/vector-icons";
 import no_artwork from "../assets/images/no_artwork.png";
+//import Slider from "@react-native-community/slider";
 import Slider from "./custom_components/Track_slider";
 export default function Player({ navigation, route }) {
-	const { Artwork, Title, Artist } = route.params;
+	const { Artwork, Title, Artist, Duration } = route.params;
 	const button_size = 32;
 	const [isPlaying, setIsPlaying] = React.useState(false);
 	const [isLiked, setIsLiked] = React.useState(false);
+	const formatToMinutes = (ms) => {
+		let minutes = Math.floor(ms / 60000);
+		let seconds = Math.floor((ms % 60000) / 1000);
+
+		// Ajouter un zéro devant les secondes si elles sont inférieures à 10
+		seconds = seconds < 10 ? "0" + seconds : seconds;
+
+		return minutes + ":" + seconds;
+	};
 
 	return (
 		<View style={styles.Player}>
@@ -63,7 +73,7 @@ export default function Player({ navigation, route }) {
 						/>
 					</Pressable>
 				</View>
-				<Slider />
+				<Slider Duration={Duration} />
 			</View>
 			<View style={styles.Player_control}>
 				<Pressable onPress={() => console.log("Shuffle")}>

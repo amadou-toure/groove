@@ -1,11 +1,10 @@
 import { Text, View, FlatList, Image, Pressable } from "react-native";
 import { SafeAreaView } from "react-native";
-import React, { Component, useContext, useState } from "react";
+import React, { useState } from "react";
 import { styles, Main_color } from "../../global_style";
 import no_artwork from "../../assets/images/no_artwork.png";
 import { Audio } from "expo-av";
 import library from "../../assets/data/Library.json";
-import Bottom_Player from "../custom_components/Bottom_Player";
 
 export default Track = ({ navigation }) => {
 	const song = new Audio.Sound();
@@ -20,14 +19,24 @@ export default Track = ({ navigation }) => {
 	const unloadUrl = async () => {
 		await song.unloadAsync();
 	};
-	const next = () => {};
+	const getDuration = async () => {
+		try {
+			const result = await song.getStatusAsync();
+			return result.durationMillis;
+		} catch (error) {
+			console.error("Error getting song status:", error);
+			throw error;
+		}
+	};
 	const handlePress = async (item) => {
-		unloadUrl();
+		const duration = getDuration();
 		navigation.navigate("Player", {
 			Artist: item.artist,
 			Artwork: item.artwork,
 			Title: item.title,
+			Duration: duration,
 		});
+		unloadUrl();
 		if (song._loaded != true) {
 			await loadUrl(getTrackUrl(item));
 			await song.playAsync();
