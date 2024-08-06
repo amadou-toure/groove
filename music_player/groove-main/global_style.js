@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
 		display: "flex",
 		flexDirection: "row",
 		alignItems: "center",
-		justifyContent: "space-around",
-		width: "80%",
-		flex: 0.2,
+		justifyContent: "center",
+		width: "100%",
+		flex: 0.1,
 	},
 	Track_info: {
 		display: "flex",
