@@ -1,16 +1,19 @@
 import React from "react";
-import { getColors } from "react-native-image-colors.ts";
+import { getColors } from "react-native-image-colors";
 
-const useImageColors = (url) => {
-	const [colors, setColors] = React.useState(null);
+const useImageColors = () => {
+  const [colors, setColors] = React.useState(null);
 
-	React.useEffect(() => {
-		getColors(url, {
-			fallback: "#228B22",
-			cache: true,
-			key: url,
-		}).then(setColors);
-	}, []);
+  React.useEffect(() => {
+    const url = "https://i.imgur.com/68jyjZT.jpg";
 
-	return colors;
+    getColors(url, {
+      fallback: "#228B22",
+      cache: true,
+      key: url,
+    }).then(setColors);
+  }, []);
+
+  return colors;
 };
+export { useImageColors };
