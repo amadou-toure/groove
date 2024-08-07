@@ -1,19 +1,28 @@
 import React from "react";
 import { getColors } from "react-native-image-colors";
 
-const useImageColors = () => {
-  const [colors, setColors] = React.useState(null);
+// const useImageColors = (url) => {
+//   const [colors, setColors] = React.useState(null);
 
-  React.useEffect(() => {
-    const url = "https://i.imgur.com/68jyjZT.jpg";
+//   React.useEffect(async () => {
+//     await getColors(url, {
+//       fallback: "#228B22",
+//       cache: true,
+//       key: url,
+//     }).then(setColors);
+//   }, []);
+//   return colors;
+// };
 
-    getColors(url, {
-      fallback: "#228B22",
-      cache: true,
-      key: url,
-    }).then(setColors);
-  }, []);
+//export { useImageColors };
 
-  return colors;
+const BgGenerator = async (url) => {
+  await getColors(url, {
+    fallback: "#228B22",
+    cache: true,
+    key: url,
+  }).then((result) => {
+    return result;
+  });
 };
-export { useImageColors };
+export { BgGenerator };

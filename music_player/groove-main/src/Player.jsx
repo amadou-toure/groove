@@ -1,4 +1,4 @@
-import { View, Text, Image, Pressable } from "react-native";
+import { View, Text, Image, Pressable, ImageBackground } from "react-native";
 import React from "react";
 import { styles, Main_color } from "../global_style";
 import { Ionicons } from "@expo/vector-icons";
@@ -7,15 +7,38 @@ import no_artwork from "../assets/images/no_artwork.png";
 import Slider from "./custom_components/Track_slider";
 import { useImageColors } from "./hooks/useImageColors";
 import bgc from "../assets/Backgrounds/bg1.jpg";
+import { BgGenerator } from "./Service/bgGenrerator";
+import { LinearGradient } from "expo-linear-gradient";
 export default function Player({ navigation, route }) {
-  const { Artwork, Title, Artist, Duration } = route.params;
+  const { Artwork, Title, Artist, Duration, Bg } = route.params;
   const button_size = 32;
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [isLiked, setIsLiked] = React.useState(false);
-  const bg = useImageColors();
-  console.log(bg);
+
+  // const Bg = async () => {
+
+  // return background;
+  // };
+
   return (
-    <View style={[styles.Player, { backgroundColor: "#000" }]}>
+    <ImageBackground
+      style={[styles.Player]}
+      source={Artwork ? { uri: Artwork } : no_artwork}
+      blurRadius={90}
+      resizeMode="cover"
+    >
+      {/* <LinearGradient
+        // Background Linear Gradient
+        colors={[Bg.dominant, Bg.average, Bg.vibrant, "transparent"]}
+        //colors={["#000", "#005", "#fff"]}
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: 0,
+          height: "100%",
+        }}
+      /> */}
       <View style={styles.Track_info}>
         {Artwork ? (
           <Image
@@ -125,6 +148,6 @@ export default function Player({ navigation, route }) {
           </Pressable>
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }

@@ -5,6 +5,7 @@ import { styles, Main_color } from "../../global_style";
 import no_artwork from "../../assets/images/no_artwork.png";
 import { Audio } from "expo-av";
 import library from "../../assets/data/Library.json";
+//import { BgGenerator } from "../Service/bgGenrerator";
 
 export default Track = ({ navigation }) => {
   const song = new Audio.Sound();
@@ -19,6 +20,21 @@ export default Track = ({ navigation }) => {
   const unloadUrl = async () => {
     await song.unloadAsync();
   };
+  // const Bg = async (item) => {
+  //   try {
+  //     const background = item.artwork
+  //       ? await BgGenerator(item.artwork)
+  //       : await BgGenerator(no_artwork);
+  //     if (background != null) {
+  //       return background;
+  //     } else {
+  //       throw new Error("bg not loaded");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error setting bg:", error);
+  //     return "error";
+  //   }
+  // };
   // const getPosition = async () => {
   // 	try {
   // 		const result = await song.getStatusAsync();
