@@ -1,65 +1,69 @@
 import { View, Text } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import Slider from "@react-native-community/slider";
 import { Main_color } from "../../global_style";
-// import Slider from "react-native-awesome-slider";
+import { SongContext } from "../store";
 
 export default function Track_slider({ Duration }) {
-	const format_minutes = (millis) => {
-		const minutes = Math.floor(millis / 60000);
-		const seconds = Math.floor((millis % 60000) / 1000);
+  const Song = useContext(SongContext);
+  const format_minutes = (millis) => {
+    const minutes = Math.floor(millis / 60000);
+    const seconds = Math.floor((millis % 60000) / 1000);
 
-		// Format seconds to be always two digits
-		const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+    // Format seconds to be always two digits
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
-		return `${minutes}:${formattedSeconds}`;
-	};
-	const [value, setValue] = React.useState(0);
+    return `${minutes}:${formattedSeconds}`;
+  };
+  const [value, setValue] = React.useState(0);
+  const UpdatePosition = async (newPosition) => {
+    await Song.playFromPositionAsync(newPosition);
+  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setValue((value) => {
+        if (value <= Duration - 1000) {
+          return value + 1000;
+        } else {
+          clearInterval(interval);
+          return value;
+        }
+      });
+    }, 1000);
 
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setValue((value) => {
-				if (value <= Duration) {
-					return value + 1000;
-				} else {
-					clearInterval(interval);
-					return value;
-				}
-			});
-		}, 1000);
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, [Duration]);
 
-		// Cleanup interval on component unmount
-		return () => clearInterval(interval);
-	}, [Duration]);
-
-	return (
-		<View style={{ display: "flex", flexDirection: "column", width: "90%" }}>
-			<Slider
-				style={{ width: "100%", height: 10 }}
-				minimumValue={0}
-				maximumValue={Duration}
-				step={1}
-				value={value}
-				minimumTrackTintColor={Main_color.Button_color}
-				maximumTrackTintColor={Main_color.Button_color}
-				thumbTintColor={Main_color.Button_color}
-			/>
-			<View
-				style={{
-					display: "flex",
-					flexDirection: "row",
-					justifyContent: "space-between",
-					alignItems: "center",
-					width: "100%",
-				}}
-			>
-				<Text style={{ color: Main_color.Button_color }}>
-					{format_minutes(value)}
-				</Text>
-				<Text style={{ color: Main_color.Button_color }}>
-					{format_minutes(Duration)}
-				</Text>
-			</View>
-		</View>
-	);
+  return (
+    <View style={{ display: "flex", flexDirection: "column", width: "90%" }}>
+      <Slider
+        style={{ width: "100%", height: 10 }}
+        minimumValue={0}
+        maximumValue={Duration}
+        step={1}
+        value={value}
+        minimumTrackTintColor={Main_color.Button_color}
+        maximumTrackTintColor={Main_color.Button_color}
+        thumbTintColor={Main_color.Button_color}
+        onSlidingComplete={(result) => UpdatePosition(result)}
+      />
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <Text style={{ color: Main_color.Button_color }}>
+          {format_minutes(value)}
+        </Text>
+        <Text style={{ color: Main_color.Button_color }}>
+          {format_minutes(Duration)}
+        </Text>
+      </View>
+    </View>
+  );
 }
