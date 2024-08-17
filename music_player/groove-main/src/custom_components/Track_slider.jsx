@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "@react-native-community/slider";
 import { Main_color } from "../../global_style";
 // import Slider from "react-native-awesome-slider";
@@ -16,6 +16,22 @@ export default function Track_slider({ Duration }) {
 	};
 	const [value, setValue] = React.useState(0);
 
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setValue((value) => {
+				if (value <= Duration) {
+					return value + 1000;
+				} else {
+					clearInterval(interval);
+					return value;
+				}
+			});
+		}, 1000);
+
+		// Cleanup interval on component unmount
+		return () => clearInterval(interval);
+	}, [Duration]);
+
 	return (
 		<View style={{ display: "flex", flexDirection: "column", width: "90%" }}>
 			<Slider
@@ -24,9 +40,9 @@ export default function Track_slider({ Duration }) {
 				maximumValue={Duration}
 				step={1}
 				value={value}
-				minimumTrackTintColor={Main_color.Secondary_color}
-				maximumTrackTintColor={Main_color.Secondary_color}
-				thumbTintColor={Main_color.Secondary_color}
+				minimumTrackTintColor={Main_color.Button_color}
+				maximumTrackTintColor={Main_color.Button_color}
+				thumbTintColor={Main_color.Button_color}
 			/>
 			<View
 				style={{
@@ -37,10 +53,10 @@ export default function Track_slider({ Duration }) {
 					width: "100%",
 				}}
 			>
-				<Text style={{ color: Main_color.Secondary_color }}>
+				<Text style={{ color: Main_color.Button_color }}>
 					{format_minutes(value)}
 				</Text>
-				<Text style={{ color: Main_color.Secondary_color }}>
+				<Text style={{ color: Main_color.Button_color }}>
 					{format_minutes(Duration)}
 				</Text>
 			</View>

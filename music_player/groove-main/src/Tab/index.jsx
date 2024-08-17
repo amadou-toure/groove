@@ -20,15 +20,14 @@ export default function () {
 			initialRouteName="Track"
 			labeled={false}
 			barStyle={{
-				marginLeft: 10,
-				marginRight: 10,
-				marginBottom: 15,
-				borderRadius: 30,
+				marginLeft: 9,
+				marginRight: 9,
+				marginBottom: 7,
+				borderRadius: 15,
 				position: "absolute",
 				overflow: "hidden",
 				opacity: 0.8,
 				backgroundColor: Main_color.Third_color,
-				tabBarBackground: () => <BlurView tint="dark" intensity={50} />,
 			}}
 			screenOptions={({ route }) => ({
 				tabBarActiveTintColor: "#FF7878",
