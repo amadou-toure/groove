@@ -20,20 +20,34 @@ export default function Track_slider({ Duration }) {
     await Song.playFromPositionAsync(newPosition);
   };
   useEffect(() => {
-    const interval = setInterval(() => {
-      setValue((value) => {
-        if (value <= Duration - 1000) {
-          return value + 1000;
-        } else {
-          clearInterval(interval);
-          return value;
-        }
-      });
-    }, 1000);
+    // Function to be executed every second
+    const getPosition = async () => {
+      const status = await Song.getStatusAsync();
+      setValue(status.positionMillis);
+    };
 
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
-  }, [Duration]);
+    // Set up the interval
+    const intervalId = setInterval(getPosition, 1000);
+
+    // Clear the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []); // Empty dependency array ensures this runs once on mount
+
+  //   useEffect(() => {
+  //     const interval = setInterval(() => {
+  //       setValue((value) => {
+  //         if (value <= Duration - 1000) {
+  //           return value + 1000;
+  //         } else {
+  //           clearInterval(interval);
+  //           return value;
+  //         }
+  //       });
+  //     }, 1000);
+
+  //     // Cleanup interval on component unmount
+  //     return () => clearInterval(interval);
+  //   }, [Duration]);
 
   return (
     <View style={{ display: "flex", flexDirection: "column", width: "90%" }}>
