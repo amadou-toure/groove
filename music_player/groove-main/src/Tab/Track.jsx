@@ -6,10 +6,12 @@ import no_artwork from "../../assets/images/no_artwork.png";
 import library from "../../assets/data/Library.json";
 import { useContext } from "react";
 import { SongContext } from "../store";
+import Search from "../custom_components/Search_Bar";
 
 export default Track = ({ navigation }) => {
-  const song = useContext(SongContext);
+  const { song } = useContext(SongContext);
   const songList = library;
+
   const getTrackUrl = (item) => {
     return songList[songList.indexOf(item)].url;
   };
@@ -22,6 +24,7 @@ export default Track = ({ navigation }) => {
 
   const handlePress = async (item) => {
     await unloadUrl();
+    // setIndex(songList.indexOf(item));
     if (song._loaded != true) {
       await loadUrl(getTrackUrl(item));
       navigation.navigate("Player", {
@@ -32,6 +35,7 @@ export default Track = ({ navigation }) => {
       });
       await song.playAsync();
     } else {
+      //setIndex(songList.indexOf(item));
       navigation.navigate("Player", {
         Artist: item.artist,
         Artwork: item.artwork,
@@ -46,6 +50,7 @@ export default Track = ({ navigation }) => {
       <Text style={[styles.Title_text, { flex: 0.15, width: "90%" }]}>
         Songs
       </Text>
+      <Search />
       <FlatList
         style={{ flex: 0.9 }}
         data={songList}

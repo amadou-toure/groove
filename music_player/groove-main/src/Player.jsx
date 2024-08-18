@@ -7,42 +7,29 @@ import no_artwork from "../assets/images/no_artwork.png";
 import { SongContext } from "./store";
 import Slider from "./custom_components/Track_slider";
 export default function Player({ navigation, route }) {
-  const Song = useContext(SongContext);
+  const { song } = useContext(SongContext);
   const { Artwork, Title, Artist, Status } = route.params;
   const button_size = 32;
   const [isLiked, setIsLiked] = React.useState(false);
-  //you need to fix this later
+  //you need to fix this later: i should not have to use this use state(isPlaying)
   const [isPlaying, setIsPlaying] = React.useState(true);
 
-  const getStatus = async () => {
-    try {
-      const result = await Song.getStatusAsync();
-      if (result) {
-        return result;
-      } else {
-        throw new Error("no result");
-      }
-    } catch (error) {
-      console.error("Error getting song status:", error);
-      return "error";
-    }
-  };
   const handlePlayButton = async () => {
-    const status = await Song.getStatusAsync();
+    const status = await song.getStatusAsync();
     if (!status.isPlaying) {
-      await Song.playAsync();
+      await song.playAsync();
       setIsPlaying(true);
     } else {
-      await Song.pauseAsync();
+      await song.pauseAsync();
       setIsPlaying(false);
     }
   };
-  const handleSkipButton = async () => {};
-
-  // const Bg = async () => {
-
-  // return background;
-  // };
+  const handleSkipButton = async () => {
+    //await playNext();
+  };
+  const handlePreviousButton = async () => {
+    //await playPevious();
+  };
 
   return (
     <ImageBackground
@@ -51,18 +38,6 @@ export default function Player({ navigation, route }) {
       blurRadius={90}
       resizeMode="cover"
     >
-      {/* <LinearGradient
-        // Background Linear Gradient
-        colors={[Bg.dominant, Bg.average, Bg.vibrant, "transparent"]}
-        //colors={["#000", "#005", "#fff"]}
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: 0,
-          height: "100%",
-        }}
-      /> */}
       <View style={styles.Track_info}>
         {Artwork ? (
           <Image
@@ -133,7 +108,7 @@ export default function Player({ navigation, route }) {
               color={Main_color.Button_color}
             />
           </Pressable>
-          <Pressable onPress={() => console.log("Skip-back")}>
+          <Pressable onPress={handlePreviousButton}>
             <Ionicons
               name="play-skip-back"
               size={button_size}
@@ -155,7 +130,7 @@ export default function Player({ navigation, route }) {
               color={Main_color.Button_color}
             />
           </Pressable>
-          <Pressable onPress={() => console.log("Skip-forward")}>
+          <Pressable onPress={() => handleSkipButton}>
             <Ionicons
               name="play-skip-forward"
               size={button_size}

@@ -5,7 +5,7 @@ import { Main_color } from "../../global_style";
 import { SongContext } from "../store";
 
 export default function Track_slider({ Duration }) {
-  const Song = useContext(SongContext);
+  const { song } = useContext(SongContext);
   const format_minutes = (millis) => {
     const minutes = Math.floor(millis / 60000);
     const seconds = Math.floor((millis % 60000) / 1000);
@@ -17,12 +17,12 @@ export default function Track_slider({ Duration }) {
   };
   const [value, setValue] = React.useState(0);
   const UpdatePosition = async (newPosition) => {
-    await Song.playFromPositionAsync(newPosition);
+    await song.playFromPositionAsync(newPosition);
   };
   useEffect(() => {
     // Function to be executed every second
     const getPosition = async () => {
-      const status = await Song.getStatusAsync();
+      const status = await song.getStatusAsync();
       setValue(status.positionMillis);
     };
 
@@ -32,22 +32,6 @@ export default function Track_slider({ Duration }) {
     // Clear the interval on component unmount
     return () => clearInterval(intervalId);
   }, []); // Empty dependency array ensures this runs once on mount
-
-  //   useEffect(() => {
-  //     const interval = setInterval(() => {
-  //       setValue((value) => {
-  //         if (value <= Duration - 1000) {
-  //           return value + 1000;
-  //         } else {
-  //           clearInterval(interval);
-  //           return value;
-  //         }
-  //       });
-  //     }, 1000);
-
-  //     // Cleanup interval on component unmount
-  //     return () => clearInterval(interval);
-  //   }, [Duration]);
 
   return (
     <View style={{ display: "flex", flexDirection: "column", width: "90%" }}>

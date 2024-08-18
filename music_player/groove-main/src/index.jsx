@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Bottom_tab from "./Tab";
 import Player from "./Player";
 import Detail from "./Detail";
+//import Bottom_Player from "./custom_components/Bottom_Player";
 
 const Stack = createNativeStackNavigator();
 
