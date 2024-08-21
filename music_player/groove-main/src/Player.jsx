@@ -6,7 +6,7 @@ import { useContext } from "react";
 import no_artwork from "../assets/images/no_artwork.png";
 import { SongContext } from "./store";
 import Slider from "./custom_components/Track_slider";
-export default function Player({ navigation, route }) {
+export default function Player({ route }) {
   const { song } = useContext(SongContext);
   const { Artwork, Title, Artist, Status } = route.params;
   const button_size = 32;

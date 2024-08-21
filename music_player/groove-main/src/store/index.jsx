@@ -38,6 +38,7 @@ export const SongProvider = ({ children }) => {
     <SongContext.Provider
       value={{
         song,
+        songList,
         // index,
         // setIndex,
         // playNext,

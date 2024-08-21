@@ -4,7 +4,7 @@ const Main_color = {
   Primary_color: "#EBE6E4",
   Secondary_color: "#FF7878", //active bottom navigation tab color
   Third_color: "#343434", //"#7D7D7D", //grey bottom nav color
-  Button_color: "#fff",
+  Button_color: "#decad0",
   bg_color: "#000",
 };
 const styles = StyleSheet.create({

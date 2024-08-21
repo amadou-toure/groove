@@ -120,7 +120,7 @@ export default function () {
           component={Setting}
         />
       </Tab.Navigator>
-      {song._isLoaded ? <Bottom_Player /> : <></>}
+      {/* <Bottom_Player /> */}
     </>
   );
 }
