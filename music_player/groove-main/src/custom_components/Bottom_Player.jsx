@@ -3,7 +3,6 @@ import React from "react";
 import { styles, Main_color } from "../../global_style";
 import { Ionicons } from "@expo/vector-icons";
 import no_artwork from "../../assets/images/no_artwork.png";
-import Slider from "./Track_slider";
 import { useContext } from "react";
 import Track_slider from "./Track_slider";
 import { SongContext } from "../store";
@@ -13,7 +12,9 @@ export default function () {
 
   return (
     <View style={styles.bottom_player}>
+      {/* <Pressable onPress={navigation.navigate("Player")}> */}
       <Text style={styles.Secondary_text}>test</Text>
+      {/* </Pressable> */}
       <Track_slider Duration={50000} />
     </View>
   );

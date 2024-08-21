@@ -1,6 +1,8 @@
 import { View, Text } from "react-native";
 import React, { useEffect, useContext } from "react";
-import Slider from "@react-native-community/slider";
+//import Slider from "@react-native-community/slider";
+import { Slider } from "react-native-elements";
+import { Animated } from "react-native";
 import { Main_color } from "../../global_style";
 import { SongContext } from "../store";
 
@@ -36,14 +38,19 @@ export default function Track_slider({ Duration }) {
   return (
     <View style={{ display: "flex", flexDirection: "column", width: "90%" }}>
       <Slider
-        style={{ width: "100%", height: 10 }}
         minimumValue={0}
         maximumValue={Duration}
         step={1}
         value={value}
-        minimumTrackTintColor={Main_color.Button_color}
+        allowTouchTrack={true}
+        minimumTrackTintColor={Main_color.Secondary_color}
         maximumTrackTintColor={Main_color.Button_color}
-        thumbTintColor={Main_color.Button_color}
+        trackStyle={{ height: 6, backgroundColor: Main_color.Secondary_color }}
+        thumbStyle={{
+          height: 17,
+          width: 22,
+          backgroundColor: Main_color.Secondary_color,
+        }}
         onSlidingComplete={(result) => UpdatePosition(result)}
       />
       <View

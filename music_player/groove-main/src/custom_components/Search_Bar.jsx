@@ -1,18 +1,25 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { Searchbar } from "react-native-paper";
+import { SearchBar } from "react-native-elements";
 import { Main_color } from "../../global_style";
 
 const Search = () => {
-	const [searchQuery, setSearchQuery] = React.useState("");
+  const [searchQuery, setSearchQuery] = React.useState("");
 
-	return (
-		<Searchbar
-			placeholder="Search"
-			onChangeText={setSearchQuery}
-			value={searchQuery}
-			style={{ backgroundColor: Main_color.Third_color }}
-		/>
-	);
+  return (
+    <SearchBar
+      placeholder="Search"
+      onChangeText={setSearchQuery}
+      value={searchQuery}
+      containerStyle={{
+        backgroundColor: "#000",
+        width: "100%",
+      }}
+      inputContainerStyle={{
+        backgroundColor: "#000",
+      }}
+      inputStyle={{ backgroundColor: "#000" }}
+    />
+  );
 };
 export default Search;

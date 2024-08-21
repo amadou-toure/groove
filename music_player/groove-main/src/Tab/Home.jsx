@@ -1,5 +1,5 @@
 import { Text, View, Pressable } from "react-native";
-import React, { Component, useContext } from "react";
+import React, { useContext } from "react";
 import { styles, Main_color } from "../../global_style";
 import { SongContext } from "../store";
 

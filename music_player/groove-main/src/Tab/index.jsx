@@ -1,4 +1,5 @@
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+//import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./Home.jsx";
 import Setting from "./Setting.jsx";
 import Track from "./Track.jsx";
@@ -7,41 +8,68 @@ import { Main_color } from "../../global_style.js";
 import { Ionicons } from "@expo/vector-icons";
 import { getHeaderTitle } from "@react-navigation/elements";
 import Bottom_Player from "../custom_components/Bottom_Player.jsx";
+import { SongContext } from "../store/index.jsx";
+import { useContext } from "react";
+import { BlurView } from "expo-blur";
+import { View, Text, SafeAreaView } from "react-native";
+import { styles } from "../../global_style.js";
+import { StyleSheet } from "react-native";
 
-header: ({ navigation, route, options }) => {
-  const title = getHeaderTitle(options, route.name);
+const Tab = createBottomTabNavigator();
 
-  return (
-    <MyHeader
-      title={title}
-      style={options.headerStyle}
-    />
-  );
-};
-
-const Tab = createMaterialBottomTabNavigator();
 export default function () {
+  const song = useContext(SongContext);
   return (
     <>
       <Tab.Navigator
         initialRouteName="Track"
         labeled={false}
-        barStyle={{
-          marginLeft: 9,
-          marginRight: 9,
-          marginBottom: 0,
-          borderTopLeftRadius: 15,
-          borderTopRightRadius: 15,
-          position: "absolute",
-          overflow: "hidden",
-          opacity: 0.9,
-          backgroundColor: Main_color.Third_color,
-        }}
         screenOptions={({ route }) => ({
+          header: ({ navigation, route, options }) => {
+            const title = getHeaderTitle(options, route.name);
+            return (
+              <SafeAreaView style={options.headerStyle}>
+                <Text
+                  style={[
+                    styles.Title_text,
+                    { marginTop: "5%", marginBottom: 0, width: "70%" },
+                  ]}
+                >
+                  {title}
+                </Text>
+              </SafeAreaView>
+            );
+          },
+
+          headerStyle: {
+            backgroundColor: "#000",
+          },
+          tabBarShowLabel: false,
+          tabBarBackground: () => (
+            <BlurView
+              style={{
+                ...StyleSheet.absoluteFillObject,
+                borderRadius: 15,
+              }}
+              tint="dark"
+              intensity={85}
+              experimentalBlurMethod="dimezisBlurView"
+            />
+          ),
           tabBarActiveTintColor: "#FF7878",
           tabBarInactiveTintColor: "#EBE6E4",
-          headerShown: true,
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarStyle: {
+            position: "absolute",
+            marginLeft: 9,
+            marginRight: 9,
+            marginBottom: 9,
+            borderRadius: 15,
+            height: "10%",
+            overflow: "hidden",
+            borderColor: "transparent",
+            // backgroundColor: "#000",
+          },
+          tabBarIcon: ({ focused }) => {
             if (route.name === "Home") {
               iconName = focused ? "home" : "home-outline";
               iconColor = focused
@@ -64,11 +92,13 @@ export default function () {
                 : Main_color.Primary_color;
             }
             return (
-              <Ionicons
-                name={iconName}
-                size={28}
-                color={iconColor}
-              />
+              <>
+                <Ionicons
+                  name={iconName}
+                  size={30}
+                  color={iconColor}
+                />
+              </>
             );
           },
         })}
@@ -90,6 +120,7 @@ export default function () {
           component={Setting}
         />
       </Tab.Navigator>
+      {song._isLoaded ? <Bottom_Player /> : <></>}
     </>
   );
 }
