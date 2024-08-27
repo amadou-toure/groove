@@ -6,13 +6,17 @@ import { useContext } from "react";
 import no_artwork from "../assets/images/no_artwork.png";
 import { SongContext } from "./store";
 import Slider from "./custom_components/Track_slider";
-export default function Player({ route }) {
+import { BlurView } from "expo-blur";
+
+export default function Player({ navigation, route }) {
   const { song } = useContext(SongContext);
   const { Artwork, Title, Artist, Status } = route.params;
   const button_size = 32;
   const [isLiked, setIsLiked] = React.useState(false);
   //you need to fix this later: i should not have to use this use state(isPlaying)
   const [isPlaying, setIsPlaying] = React.useState(true);
+  const [Shuffle, setShuffle] = React.useState(false);
+  const [Replay, setReplay] = React.useState(false);
 
   const handlePlayButton = async () => {
     const status = await song.getStatusAsync();
@@ -33,12 +37,44 @@ export default function Player({ route }) {
 
   return (
     <ImageBackground
-      style={[styles.Player, { tintColor: "rgba(0,0,0,0.7)" }]}
+      style={{ flex: 1 }}
       source={Artwork ? { uri: Artwork } : no_artwork}
-      blurRadius={90}
+      blurRadius={70}
       resizeMode="cover"
     >
-      <View style={[styles.Player, { backgroundColor: "rgba(0, 0, 0, 0.5)" }]}>
+      <View style={[styles.Player, { backgroundColor: "rgba(0, 0, 0, 0.6)" }]}>
+        <View
+          style={{
+            width: "90%",
+            justifyContent: "center",
+            alignItems: "flex-start",
+            //marginTop: "15%",
+            flex: 0.15,
+          }}
+        >
+          <BlurView
+            style={[
+              ,
+              {
+                backgroundColor: "transparent",
+                borderRadius: 90,
+                padding: 8,
+                overflow: "hidden",
+                justifyContent: "center",
+                alignItems: "center",
+              },
+            ]}
+            children={
+              <Pressable onPress={() => navigation.goBack()}>
+                <Ionicons
+                  name="chevron-back"
+                  size={button_size}
+                  color={Main_color.Button_color}
+                />
+              </Pressable>
+            }
+          />
+        </View>
         <View style={styles.Track_info}>
           {Artwork ? (
             <Image
@@ -55,10 +91,76 @@ export default function Player({ route }) {
             style={{
               display: "flex",
               flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              width: "90%",
+            }}
+          >
+            {Shuffle ? (
+              <BlurView
+                style={[
+                  ,
+                  {
+                    backgroundColor: Main_color.Secondary_color,
+                    borderRadius: 20,
+                    padding: 9,
+                    overflow: "hidden",
+                    marginRight: 10,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  },
+                ]}
+                children={
+                  <Pressable onPress={() => setShuffle(!Shuffle)}>
+                    <Text style={styles.Primary_text}>Shuffle</Text>
+                  </Pressable>
+                }
+              />
+            ) : (
+              <BlurView
+                style={[
+                  ,
+                  {
+                    backgroundColor: "transparent",
+                    borderRadius: 20,
+                    padding: 9,
+                    overflow: "hidden",
+                    marginRight: 10,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  },
+                ]}
+                children={
+                  <Pressable onPress={() => setShuffle(!Shuffle)}>
+                    <Text style={styles.Primary_text}>Shuffle</Text>
+                  </Pressable>
+                }
+              />
+            )}
+
+            <BlurView
+              style={{
+                backgroundColor: "transparent",
+                borderRadius: 20,
+                padding: 9,
+                overflow: "hidden",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              children={
+                <Pressable onPress={() => console.log("repeat")}>
+                  <Text style={styles.Primary_text}>repeat</Text>
+                </Pressable>
+              }
+            />
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
-              width: "80%",
-              flex: 0.3,
+              width: "90%",
             }}
           >
             <View
@@ -67,7 +169,6 @@ export default function Player({ route }) {
                 flexDirection: "column",
                 justifyContent: "space-between",
                 alignItems: "left",
-                height: "50%",
                 width: "80%",
               }}
             >
@@ -92,6 +193,7 @@ export default function Player({ route }) {
           </View>
           <Slider Duration={Status.durationMillis} />
         </View>
+
         <View style={styles.Player_control}>
           <View
             style={{
@@ -102,13 +204,6 @@ export default function Player({ route }) {
               flexDirection: "row",
             }}
           >
-            <Pressable onPress={() => console.log("Shuffle")}>
-              <Ionicons
-                name="shuffle-outline"
-                size={button_size}
-                color={Main_color.Button_color}
-              />
-            </Pressable>
             <Pressable onPress={handlePreviousButton}>
               <Ionicons
                 name="play-skip-back"
@@ -116,33 +211,32 @@ export default function Player({ route }) {
                 color={Main_color.Button_color}
               />
             </Pressable>
-            <Pressable
-              style={{
-                backgroundColor: Main_color.Button_color,
-
-                borderRadius: 80,
-                opacity: 0.7,
-                padding: 20,
-              }}
-              onPress={handlePlayButton}
-            >
-              <Ionicons
-                name={isPlaying ? "pause" : "play"}
-                size={button_size}
-                color={Main_color.Button_color}
-              />
-            </Pressable>
+            <BlurView
+              style={[
+                ,
+                {
+                  backgroundColor: "transparent",
+                  borderRadius: 90,
+                  padding: 20,
+                  overflow: "hidden",
+                  justifyContent: "center",
+                  alignItems: "center",
+                },
+              ]}
+              children={
+                <Pressable onPress={handlePlayButton}>
+                  <Ionicons
+                    name={isPlaying ? "pause" : "play"}
+                    size={50}
+                    color={Main_color.Secondary_color}
+                  />
+                </Pressable>
+              }
+            />
             <Pressable onPress={() => handleSkipButton}>
               <Ionicons
                 name="play-skip-forward"
                 size={button_size}
-                color={Main_color.Button_color}
-              />
-            </Pressable>
-            <Pressable onPress={() => console.log("repeat")}>
-              <Ionicons
-                name="repeat-outline"
-                size={40}
                 color={Main_color.Button_color}
               />
             </Pressable>

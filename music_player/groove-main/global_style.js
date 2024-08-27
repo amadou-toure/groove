@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 const Main_color = {
   Primary_color: "#EBE6E4",
   Secondary_color: "#FF7878", //active bottom navigation tab color
-  Third_color: "#343434", //"#7D7D7D", //grey bottom nav color
-  Button_color: "#decad0",
-  bg_color: "#000",
+  Third_color: "#121212", //grey bottom nav color
+  Button_color: "#fff",
+  bg_color: "#060606",
 };
 const styles = StyleSheet.create({
   container: {
@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
   },
   Secondary_text: {
     color: Main_color.Secondary_color,
-    fontSize: 14,
-    fontWeight: "300",
+    fontSize: 15,
+    fontWeight: "500",
     textAlign: "left",
   },
   Player: {
@@ -50,8 +50,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    width: "0%",
-    height: "10%",
     position: "relative",
   },
   Player_control: {
@@ -60,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    flex: 0.1,
+    flex: 0.2,
   },
   Track_info: {
     display: "flex",
@@ -68,7 +66,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     width: "100%",
-    flex: 0.7,
+    // marginTop: "25%",
+    flex: 0.65,
   },
 });
 

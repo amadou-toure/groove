@@ -11,7 +11,7 @@ import Bottom_Player from "../custom_components/Bottom_Player.jsx";
 import { SongContext } from "../store/index.jsx";
 import { useContext } from "react";
 import { BlurView } from "expo-blur";
-import { View, Text, SafeAreaView } from "react-native";
+import { Text, SafeAreaView } from "react-native";
 import { styles } from "../../global_style.js";
 import { StyleSheet } from "react-native";
 
@@ -45,17 +45,7 @@ export default function () {
             backgroundColor: "#000",
           },
           tabBarShowLabel: false,
-          tabBarBackground: () => (
-            <BlurView
-              style={{
-                ...StyleSheet.absoluteFillObject,
-                borderRadius: 15,
-              }}
-              tint="dark"
-              intensity={85}
-              experimentalBlurMethod="dimezisBlurView"
-            />
-          ),
+
           tabBarActiveTintColor: "#FF7878",
           tabBarInactiveTintColor: "#EBE6E4",
           tabBarStyle: {
@@ -63,11 +53,11 @@ export default function () {
             marginLeft: 9,
             marginRight: 9,
             marginBottom: 9,
-            borderRadius: 15,
+            borderRadius: 25,
             height: "10%",
             overflow: "hidden",
             borderColor: "transparent",
-            // backgroundColor: "#000",
+            backgroundColor: Main_color.Third_color,
           },
           tabBarIcon: ({ focused }) => {
             if (route.name === "Home") {
@@ -120,7 +110,6 @@ export default function () {
           component={Setting}
         />
       </Tab.Navigator>
-      {/* <Bottom_Player /> */}
     </>
   );
 }

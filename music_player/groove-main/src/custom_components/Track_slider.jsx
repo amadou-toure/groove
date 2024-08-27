@@ -47,8 +47,8 @@ export default function Track_slider({ Duration }) {
         maximumTrackTintColor={Main_color.Button_color}
         trackStyle={{ height: 6, backgroundColor: Main_color.Secondary_color }}
         thumbStyle={{
-          height: 17,
-          width: 22,
+          height: 22,
+          width: 10,
           backgroundColor: Main_color.Secondary_color,
         }}
         onSlidingComplete={(result) => UpdatePosition(result)}
