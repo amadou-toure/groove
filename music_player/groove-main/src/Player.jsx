@@ -7,6 +7,7 @@ import no_artwork from "../assets/images/no_artwork.png";
 import { SongContext } from "./store";
 import Slider from "./custom_components/Track_slider";
 import { BlurView } from "expo-blur";
+import Constants from "expo-constants";
 
 export default function Player({ navigation, route }) {
   const { song } = useContext(SongContext);
@@ -48,8 +49,8 @@ export default function Player({ navigation, route }) {
             width: "90%",
             justifyContent: "center",
             alignItems: "flex-start",
-            //marginTop: "15%",
-            flex: 0.15,
+            flex: 0.1,
+            marginTop: Constants.statusBarHeight,
           }}
         >
           <BlurView
@@ -58,7 +59,7 @@ export default function Player({ navigation, route }) {
               {
                 backgroundColor: "transparent",
                 borderRadius: 90,
-                padding: 8,
+                padding: 6,
                 overflow: "hidden",
                 justifyContent: "center",
                 alignItems: "center",
@@ -103,7 +104,7 @@ export default function Player({ navigation, route }) {
                   {
                     backgroundColor: Main_color.Secondary_color,
                     borderRadius: 20,
-                    padding: 9,
+                    padding: 7,
                     overflow: "hidden",
                     marginRight: 10,
                     justifyContent: "center",
@@ -123,7 +124,7 @@ export default function Player({ navigation, route }) {
                   {
                     backgroundColor: "transparent",
                     borderRadius: 20,
-                    padding: 9,
+                    padding: 7,
                     overflow: "hidden",
                     marginRight: 10,
                     justifyContent: "center",
@@ -142,7 +143,7 @@ export default function Player({ navigation, route }) {
               style={{
                 backgroundColor: "transparent",
                 borderRadius: 20,
-                padding: 9,
+                padding: 7,
                 overflow: "hidden",
                 justifyContent: "center",
                 alignItems: "center",

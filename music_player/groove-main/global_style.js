@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Main_color.bg_color,
-    paddingTop: "20%",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    position: "relative",
+    position: "absolute",
   },
   Player_control: {
     display: "flex",
@@ -66,7 +65,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     width: "100%",
-    // marginTop: "25%",
     flex: 0.65,
   },
 });

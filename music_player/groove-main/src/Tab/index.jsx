@@ -14,7 +14,7 @@ import { BlurView } from "expo-blur";
 import { Text, SafeAreaView } from "react-native";
 import { styles } from "../../global_style.js";
 import { StyleSheet } from "react-native";
-
+import Constants from "expo-constants";
 const Tab = createBottomTabNavigator();
 
 export default function () {
@@ -29,20 +29,17 @@ export default function () {
             const title = getHeaderTitle(options, route.name);
             return (
               <SafeAreaView style={options.headerStyle}>
-                <Text
-                  style={[
-                    styles.Title_text,
-                    { marginTop: "5%", marginBottom: 0, width: "70%" },
-                  ]}
-                >
-                  {title}
-                </Text>
+                <Text style={[styles.Title_text]}>{title}</Text>
               </SafeAreaView>
             );
           },
 
           headerStyle: {
-            backgroundColor: "#000",
+            marginTop: Constants.statusBarHeight,
+            backgroundColor: Main_color.Third_color,
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center ",
           },
           tabBarShowLabel: false,
 

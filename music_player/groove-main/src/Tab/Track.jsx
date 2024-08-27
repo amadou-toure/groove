@@ -48,9 +48,8 @@ export default Track = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Search />
-
       <FlatList
-        style={{ flex: 0.7 }}
+        style={{ flex: 0.8 }}
         data={songList}
         renderItem={({ item }) => (
           <Pressable

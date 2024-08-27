@@ -11,14 +11,15 @@ const Search = () => {
       placeholder="Search"
       onChangeText={setSearchQuery}
       value={searchQuery}
+      round={true}
       containerStyle={{
-        backgroundColor: "#000",
+        backgroundColor: Main_color.bg_color,
         width: "100%",
       }}
       inputContainerStyle={{
-        backgroundColor: "#000",
+        backgroundColor: Main_color.Third_color,
       }}
-      inputStyle={{ backgroundColor: "#000" }}
+      inputStyle={{ backgroundColor: Main_color.Third_color }}
     />
   );
 };
