@@ -5,11 +5,11 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/images/splashScreenRaccon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#fff"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,9 +20,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/splashScreenRaccon.png",
-        "backgroundColor": "#000000"
+        "backgroundColor": "#fff"
       },
-      "package": "com.amadooutoure.boogie"
+      "package": "com.amadoutoure.boogie"
     },
     "web": {
       "favicon": "./assets/favicon.png"
