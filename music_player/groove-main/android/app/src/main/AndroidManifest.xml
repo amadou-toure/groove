@@ -27,7 +27,7 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="com.amadooutoure.boogie"/>
+        <data android:scheme="com.amadoutoure.boogie"/>
         <data android:scheme="exp+boogie"/>
       </intent-filter>
     </activity>

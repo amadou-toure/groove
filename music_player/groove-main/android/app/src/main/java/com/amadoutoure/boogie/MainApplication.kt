@@ -1,4 +1,4 @@
-package com.amadooutoure.boogie
+package com.amadoutoure.boogie
 
 import android.app.Application
 import android.content.res.Configuration
