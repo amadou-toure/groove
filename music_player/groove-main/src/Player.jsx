@@ -10,7 +10,7 @@ import { BlurView } from "expo-blur";
 import Constants from "expo-constants";
 
 export default function Player({ navigation, route }) {
-  const { song } = useContext(SongContext);
+  const song = useContext(SongContext);
   const { Artwork, Title, Artist, Status } = route.params;
   const button_size = 32;
   const [isLiked, setIsLiked] = React.useState(false);

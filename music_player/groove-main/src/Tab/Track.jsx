@@ -8,25 +8,17 @@ import { useContext } from "react";
 import { SettingContext } from "../store/Settings";
 import { SongContext } from "../store";
 import Search from "../components/Search_Bar";
+import { useSong } from "../hooks/useSong";
 
 export default Track = ({ navigation }) => {
-  const { song } = useContext(SongContext);
+  const song = useContext(SongContext);
   const { Main_color } = useContext(SettingContext);
-  const songList = library;
+  const { getTrackUrl, loadUrl, unloadUrl } = useSong();
 
-  const getTrackUrl = (item) => {
-    return songList[songList.indexOf(item)].url;
-  };
-  const loadUrl = async (url) => {
-    await song.loadAsync({ uri: url });
-  };
-  const unloadUrl = async () => {
-    await song.unloadAsync();
-  };
+  const songList = library;
 
   const handlePress = async (item) => {
     await unloadUrl();
-    // setIndex(songList.indexOf(item));
     if (song._loaded != true) {
       await loadUrl(getTrackUrl(item));
       navigation.navigate("Player", {
@@ -37,7 +29,6 @@ export default Track = ({ navigation }) => {
       });
       await song.playAsync();
     } else {
-      //setIndex(songList.indexOf(item));
       navigation.navigate("Player", {
         Artist: item.artist,
         Artwork: item.artwork,

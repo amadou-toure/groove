@@ -7,7 +7,7 @@ import { Main_color } from "../../global_style";
 import { SongContext } from "../store";
 
 export default function Track_slider({ Duration }) {
-  const { song } = useContext(SongContext);
+  const song = useContext(SongContext);
   const format_minutes = (millis) => {
     const minutes = Math.floor(millis / 60000);
     const seconds = Math.floor((millis % 60000) / 1000);

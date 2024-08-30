@@ -11,43 +11,5 @@ export const SongProvider = ({ children }) => {
   const songList = Library;
   const [index, setIndex] = useState(null);
 
-  // const loadUrl = async (url) => {
-  //   await song.loadAsync({ uri: url });
-  // };
-  // const unloadUrl = async () => {
-  //   await song.unloadAsync();
-  // };
-  // const playNext = async () => {
-  //   await unloadUrl();
-  //   console.log("next");
-  //   await song.stopAsync();
-  //   setIndex(index + 1);
-  //   await loadUrl(songList[index].url);
-  //   await song.playAsync();
-  // };
-  // const playPevious = async () => {
-  //   console.log("prev");
-  //   await song.stopAsync();
-  //   await unloadUrl();
-  //   setIndex(index - 1);
-  //   await loadUrl(songList[index].url);
-  //   await song.playAsync();
-  // };
-
-  return (
-    <SongContext.Provider
-      value={{
-        song,
-        songList,
-        // index,
-        // setIndex,
-        // playNext,
-        // playPevious,
-        // unloadUrl,
-        // loadUrl,
-      }}
-    >
-      {children}
-    </SongContext.Provider>
-  );
+  return <SongContext.Provider value={song}>{children}</SongContext.Provider>;
 };
