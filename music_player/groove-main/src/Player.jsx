@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useContext } from "react";
 import no_artwork from "../assets/images/no_artwork.png";
 import { SongContext } from "./store";
-import Slider from "./custom_components/Track_slider";
+import Slider from "./components/Track_slider";
 import { BlurView } from "expo-blur";
 import Constants from "expo-constants";
 

@@ -14,27 +14,42 @@ import Detail from "./Detail";
 const Stack = createNativeStackNavigator();
 
 export default function index() {
-	const { Main_color } = useContext(SettingContext);
-	return (
-		<NavigationContainer
-			style={[styles.container, { backgroundColor: Main_color.bg_color }]}
-		>
-			<Stack.Navigator screenOptions={{ headerShown: false }}>
-				<Stack.Screen name="Tab" component={Bottom_tab} />
-				<Stack.Screen name="Detail" component={Detail} />
-				<Stack.Group screenOptions={{ presentation: "modal" }}>
-					<Stack.Screen name="Player" component={Player} />
-				</Stack.Group>
-			</Stack.Navigator>
-		</NavigationContainer>
-	);
+  const { Main_color } = useContext(SettingContext);
+  return (
+    <>
+      <StatusBar
+        style="light"
+        backgroundColor={Main_color.Third_color}
+      />
+      <NavigationContainer
+        style={[styles.container, { backgroundColor: Main_color.bg_color }]}
+      >
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen
+            name="Tab"
+            component={Bottom_tab}
+          />
+          <Stack.Screen
+            name="Detail"
+            component={Detail}
+          />
+          <Stack.Group screenOptions={{ presentation: "modal" }}>
+            <Stack.Screen
+              name="Player"
+              component={Player}
+            />
+          </Stack.Group>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		//backgroundColor: Main_color.bg_color,
-		alignItems: "center",
-		justifyContent: "center",
-	},
+  container: {
+    flex: 1,
+    //backgroundColor: Main_color.bg_color,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
