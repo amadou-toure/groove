@@ -4,140 +4,107 @@ import { SettingContext } from "../store/Settings.jsx";
 import { useContext, useState } from "react";
 import { styles } from "../../global_style.js";
 import { Ionicons } from "@expo/vector-icons";
-
-const Option = ({ children, Visible }) => {
-  const { Main_color } = useContext(SettingContext);
-
-  return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={Visible}
-      onRequestClose={() => {
-        setModalVisible(!modalVisible);
-      }}
-    >
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <View
-          style={{
-            margin: 0,
-            backgroundColor: "white",
-            borderRadius: 20,
-            padding: 25,
-            alignItems: "center",
-            justifyContent: "center",
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 4,
-            elevation: 5,
-            backgroundColor: Main_color.Third_color,
-          }}
-        >
-          {children}
-        </View>
-      </View>
-    </Modal>
-  );
-};
-
-const OptionElements = ({ children, icon, onPress }) => {
-  const { setTheme, setLanguage, setIconSize, setTextSize, Main_color } =
-    useContext(SettingContext);
-  return (
-    <Pressable
-      onPress={onPress}
-      style={{
-        marginTop: "10%",
-        paddingBottom: "5%",
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        borderBottomColor: Main_color.Third_color,
-        borderBottomWidth: 1,
-        width: "90%",
-      }}
-    >
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
-          width: "40%",
-        }}
-      >
-        <Ionicons
-          name={icon}
-          size={25}
-          color={Main_color.Button_color}
-        />
-        {children}
-      </View>
-    </Pressable>
-  );
-};
+import Custom_Modal from "../components/Custom_Modal.jsx";
+//find another name for this component
+import Modal_Element from "../components/Modal_Element.jsx";
 
 export default function Setting() {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [ThemeModalVisible, setThemeModalVisible] = useState(false);
+  const [FontModalVisible, setFontModalVisible] = useState(false);
+  const [LanguageModalVisible, setLanguageModalVisible] = useState(false);
   const handle_choosed_option = (Action) => {
     Action();
-    setModalVisible(false);
+    setThemeModalVisible(false);
+    setFontModalVisible(false);
+    setLanguageModalVisible(false);
   };
-  const { setTheme, setLanguage, setIconSize, setTextSize, Main_color } =
+  const { setTheme, Theme, setLanguage, setIconSize, setTextSize, Main_color } =
     useContext(SettingContext);
   return (
     <ScrollView
       style={{ backgroundColor: Main_color.bg_color }}
       contentContainerStyle={styles.container}
     >
-      <OptionElements icon="person">
+      <Modal_Element icon="person">
         <Text style={styles.Primary_text}>Profile</Text>
-      </OptionElements>
-      <OptionElements
-        onPress={() => setModalVisible(true)}
+      </Modal_Element>
+      <Modal_Element
+        onPress={() => setThemeModalVisible(true)}
         icon="brush-sharp"
-        children={
-          <>
-            <Option Visible={modalVisible}>
-              <OptionElements
+      >
+        {/* Option is the container */}
+        <Custom_Modal Visible={ThemeModalVisible}>
+          {Theme === "black" ? (
+            <>
+              <Modal_Element
                 onPress={() => handle_choosed_option(() => setTheme("black"))}
+                icon="checkmark-done-sharp"
               >
                 <Text style={styles.Primary_text}>Black</Text>
-              </OptionElements>
-              <OptionElements
+              </Modal_Element>
+              <Modal_Element
+                icon="square"
+                iconColor="#020b1b"
                 onPress={() => handle_choosed_option(() => setTheme("blue"))}
               >
                 <Text style={styles.Primary_text}>Blue</Text>
-              </OptionElements>
-            </Option>
-            <Text style={styles.Primary_text}>Theme</Text>
-          </>
-        }
-      />
+              </Modal_Element>
+            </>
+          ) : (
+            <>
+              <Modal_Element
+                onPress={() => handle_choosed_option(() => setTheme("black"))}
+                icon="square"
+                iconColor="#060606"
+              >
+                <Text style={styles.Primary_text}>Black</Text>
+              </Modal_Element>
+              <Modal_Element
+                icon="checkmark-done-sharp"
+                onPress={() => handle_choosed_option(() => setTheme("blue"))}
+              >
+                <Text style={styles.Primary_text}>Blue</Text>
+              </Modal_Element>
+            </>
+          )}
+        </Custom_Modal>
+        <Text style={styles.Primary_text}>Theme</Text>
+      </Modal_Element>
 
-      <OptionElements
+      <Modal_Element
         icon="search-sharp"
-        children={<Text style={styles.Primary_text}>Police Size</Text>}
-      />
-      <OptionElements
-        icon="language-sharp"
-        children={<Text style={styles.Primary_text}>Language</Text>}
-      />
-      <OptionElements icon="notifications">
+        onPress={() => setFontModalVisible(true)}
+      >
+        <Custom_Modal Visible={FontModalVisible}>
+          <Modal_Element
+            onPress={() => handle_choosed_option(() => setTextSize())}
+          >
+            <Text style={styles.Primary_text}>Small</Text>
+          </Modal_Element>
+          <Modal_Element
+            onPress={() => handle_choosed_option(() => setTextSize())}
+          >
+            <Text style={styles.Primary_text}>Medium</Text>
+          </Modal_Element>
+          <Modal_Element
+            onPress={() => handle_choosed_option(() => setTextSize())}
+          >
+            <Text style={styles.Primary_text}>Large</Text>
+          </Modal_Element>
+        </Custom_Modal>
+        <Text style={styles.Primary_text}>Police Size</Text>
+      </Modal_Element>
+
+      <Modal_Element icon="language-sharp">
+        <Text style={styles.Primary_text}>Language</Text>
+      </Modal_Element>
+
+      <Modal_Element icon="notifications">
         <Text style={styles.Primary_text}>Notification</Text>
-      </OptionElements>
-      <OptionElements icon="musical-note-sharp">
+      </Modal_Element>
+      <Modal_Element icon="musical-note-sharp">
         <Text style={styles.Primary_text}>Equalizer</Text>
-      </OptionElements>
+      </Modal_Element>
     </ScrollView>
   );
 }
