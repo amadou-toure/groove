@@ -27,15 +27,13 @@ const useSong = () => {
   useEffect(() => {
     if (currentItem) {
       // Call getTrackUrl whenever currentItem changes
-      const url = getTrackUrl(currentItem);
+      const url = getTrackUrl(currentItem); //this const has no use but to call the gettrackurl function so that it updates the index and current item
       console.log("Track URL:", url);
       // Additional logic based on the new URL can go here
     }
   }, [currentItem]);
   const getStatus = async () => {
-    const status = await song
-      .getStatusAsync()
-      .then((result) => result.durationMillis);
+    const status = await song.getStatusAsync();
     return status;
   };
 
@@ -76,6 +74,12 @@ const useSong = () => {
     // }
     //return null;
   };
+  const getDuration = async () => {
+    const duration = await song.getStatusAsync().then((status) => {
+      return status.durationMillis;
+    });
+    return duration;
+  };
 
   return {
     getTrackUrl,
@@ -85,6 +89,7 @@ const useSong = () => {
     playNext,
     playPrevious,
     test,
+    getDuration,
   };
 };
 

@@ -198,7 +198,7 @@ export default function Player({ navigation, route }) {
               />
             </Pressable>
           </View>
-          {/* <Slider /> */}
+          <Slider />
         </View>
 
         <View style={styles.Player_control}>

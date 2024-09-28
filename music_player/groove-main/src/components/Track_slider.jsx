@@ -1,16 +1,18 @@
 import { View, Text } from "react-native";
 import React, { useEffect, useContext } from "react";
-//import Slider from "@react-native-community/slider";
-import { Slider } from "react-native-elements";
+import Slider from "@react-native-community/slider";
+//import { Slider } from "react-native-elements";
 import { Animated } from "react-native";
 import { Main_color } from "../../global_style";
 import { SongContext } from "../store";
 import { useSong } from "../hooks/useSong";
+//import { Slider } from "react-native-awesome-slider";
 
 export default function Track_slider() {
-  const song = useContext(SongContext);
+  const { song } = useContext(SongContext);
   const { getDuration } = useSong();
-  const Duration = getDuration();
+  const [Duration, setDuration] = React.useState(0);
+
   const format_minutes = (millis) => {
     const minutes = Math.floor(millis / 60000);
     const seconds = Math.floor((millis % 60000) / 1000);
@@ -37,6 +39,19 @@ export default function Track_slider() {
     // Clear the interval on component unmount
     return () => clearInterval(intervalId);
   }, []); // Empty dependency array ensures this runs once on mount
+  useEffect(() => {
+    const fetchDuration = async () => {
+      const duration = await getDuration();
+      if (duration && duration !== Duration) {
+        // Check if it’s different
+        setDuration(duration);
+      }
+    };
+
+    fetchDuration(); // Call the fetchDuration function when the component mounts or when 'song' changes
+  }, [getDuration()]); // Listen for changes to the song object
+
+  console.log(Duration);
 
   return (
     <View style={{ display: "flex", flexDirection: "column", width: "90%" }}>
@@ -44,8 +59,7 @@ export default function Track_slider() {
         minimumValue={0}
         maximumValue={Duration}
         step={1}
-        value={value}
-        allowTouchTrack={true}
+        progress={value}
         minimumTrackTintColor={Main_color.Secondary_color}
         maximumTrackTintColor={Main_color.Button_color}
         trackStyle={{ height: 6, backgroundColor: Main_color.Secondary_color }}
