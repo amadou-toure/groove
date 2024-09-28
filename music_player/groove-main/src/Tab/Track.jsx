@@ -11,7 +11,7 @@ import Search from "../components/Search_Bar";
 import { useSong } from "../hooks/useSong";
 
 export default Track = ({ navigation }) => {
-  const song = useContext(SongContext);
+  const { song } = useContext(SongContext);
   const { Main_color } = useContext(SettingContext);
   const { getTrackUrl, loadUrl, unloadUrl } = useSong();
 
@@ -20,13 +20,13 @@ export default Track = ({ navigation }) => {
   const handlePress = async (item) => {
     await unloadUrl();
     if (song._loaded != true) {
-      await loadUrl(getTrackUrl(item));
       navigation.navigate("Player", {
         Artist: item.artist,
         Artwork: item.artwork,
         Title: item.title,
         Status: await song.getStatusAsync(),
       });
+      await loadUrl(getTrackUrl(item));
       await song.playAsync();
     } else {
       navigation.navigate("Player", {

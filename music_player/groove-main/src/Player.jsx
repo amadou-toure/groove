@@ -8,9 +8,11 @@ import { SongContext } from "./store";
 import Slider from "./components/Track_slider";
 import { BlurView } from "expo-blur";
 import Constants from "expo-constants";
+import { useSong } from "./hooks/useSong";
 
 export default function Player({ navigation, route }) {
-  const song = useContext(SongContext);
+  const { song, Next, setNext, Previous, setPrevious } =
+    useContext(SongContext);
   const { Artwork, Title, Artist, Status } = route.params;
   const button_size = 32;
   const [isLiked, setIsLiked] = React.useState(false);
@@ -18,7 +20,11 @@ export default function Player({ navigation, route }) {
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [Shuffle, setShuffle] = React.useState(false);
   const [Replay, setReplay] = React.useState(false);
+  const { getStatus, getTrackUrl, unloadUrl, loadUrl, playNext, playPrevious } =
+    useSong();
+  const Duration = getStatus();
 
+  console.log(Duration);
   const handlePlayButton = async () => {
     const status = await song.getStatusAsync();
     if (!status.isPlaying) {
@@ -30,10 +36,10 @@ export default function Player({ navigation, route }) {
     }
   };
   const handleSkipButton = async () => {
-    //await playNext();
+    await playNext();
   };
   const handlePreviousButton = async () => {
-    //await playPevious();
+    await playPrevious();
   };
 
   return (
@@ -192,7 +198,7 @@ export default function Player({ navigation, route }) {
               />
             </Pressable>
           </View>
-          <Slider Duration={Status.durationMillis} />
+          {/* <Slider /> */}
         </View>
 
         <View style={styles.Player_control}>
@@ -234,7 +240,7 @@ export default function Player({ navigation, route }) {
                 </Pressable>
               }
             />
-            <Pressable onPress={() => handleSkipButton}>
+            <Pressable onPress={handleSkipButton}>
               <Ionicons
                 name="play-skip-forward"
                 size={button_size}

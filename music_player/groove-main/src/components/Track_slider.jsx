@@ -5,9 +5,12 @@ import { Slider } from "react-native-elements";
 import { Animated } from "react-native";
 import { Main_color } from "../../global_style";
 import { SongContext } from "../store";
+import { useSong } from "../hooks/useSong";
 
-export default function Track_slider({ Duration }) {
+export default function Track_slider() {
   const song = useContext(SongContext);
+  const { getDuration } = useSong();
+  const Duration = getDuration();
   const format_minutes = (millis) => {
     const minutes = Math.floor(millis / 60000);
     const seconds = Math.floor((millis % 60000) / 1000);
