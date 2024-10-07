@@ -4,51 +4,47 @@ import { SongContext } from "../store";
 import { Alert } from "react-native";
 
 const useSong = () => {
-  const [Index, setIndex] = useState(0);
+  const [index, setIndex] = useState(0); // State to hold the current index
   const [currentItem, setCurrentItem] = useState(null); // State to hold the current item
   const songList = Library;
   const { song } = useContext(SongContext);
 
-  const test = () => {
-    console.log("test passed");
-  };
-
-  const getTrackUrl = (item) => {
-    const newIndex = songList.indexOf(item);
-    setIndex(newIndex); // Set new index
-    setCurrentItem(item); // Update the current item
-
-    // You can still retrieve the URL here if needed
-    if (newIndex !== -1) {
-      return songList[newIndex].url;
-    }
-    return null;
-  };
-  useEffect(() => {
-    if (currentItem) {
-      // Call getTrackUrl whenever currentItem changes
-      const url = getTrackUrl(currentItem); //this const has no use but to call the gettrackurl function so that it updates the index and current item
-      console.log("Track URL:", url);
-      // Additional logic based on the new URL can go here
-    }
-  }, [currentItem]);
+ 
   const getStatus = async () => {
     const status = await song.getStatusAsync();
     return status;
   };
 
+  const getDuration = async () => {
+    const duration = await song.getStatusAsync().then((status) => {
+      return status.durationMillis;
+    });
+    return duration;
+  };
+
+  const getTrackUrl = (item) => {
+    const newIndex = songList.indexOf(item);
+    
+    if (newIndex !== -1) {
+      setIndex(newIndex);
+      return songList[newIndex].url;
+    }
+    return null;
+  };
+
   const loadUrl = async (url) => {
     try {
       await song.loadAsync({ uri: url });
+     console.log("loading "+url);
     } catch (error) {
-      Alert.alert("Error", "Failed to load the sound", "ok");
-      console.error("Erreur lors du chargement de l'URL :", error);
+      console.error("Error", "Failed to load the sound");
+     // console.error("Erreur lors du chargement de l'URL :", error);
     }
   };
 
   const unloadUrl = async () => {
     try {
-      //console.log(song);
+      console.log("unloading");
       await song.unloadAsync();
     } catch (error) {
       console.error("Erreur lors du déchargement de l'URL :", error);
@@ -56,16 +52,15 @@ const useSong = () => {
   };
 
   const playNext = async () => {
-    console.log(currentIndex);
-
-    // await unloadUrl();
-    // await loadUrl(getTrackUrl(songList[currentIndex + 1]));
-    // setCurrentIndex(currentIndex + 1);
-    // await song.playAsync();
+    console.log(index)
+  //  await song.pauseAsync();
+  //  await unloadUrl();
+  //  await loadUrl(getTrackUrl(songList[index + 1]));
+  //  await song.playAsync();
   };
 
   const playPrevious = async () => {
-    console.log(currentIndex);
+   console.log(index);
     // if (currentIndex > 0) {
     //   await unloadUrl();
     //   await loadUrl(getTrackUrl(songList[currentIndex - 1]));
@@ -74,12 +69,7 @@ const useSong = () => {
     // }
     //return null;
   };
-  const getDuration = async () => {
-    const duration = await song.getStatusAsync().then((status) => {
-      return status.durationMillis;
-    });
-    return duration;
-  };
+ 
 
   return {
     getTrackUrl,
@@ -88,7 +78,6 @@ const useSong = () => {
     unloadUrl,
     playNext,
     playPrevious,
-    test,
     getDuration,
   };
 };

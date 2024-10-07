@@ -24,7 +24,7 @@ export default function Player({ navigation, route }) {
     useSong();
   const Duration = getStatus();
 
-  console.log(Duration);
+  //console.log(Duration);
   const handlePlayButton = async () => {
     const status = await song.getStatusAsync();
     if (!status.isPlaying) {

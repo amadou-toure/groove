@@ -7,13 +7,13 @@ export const SongContext = createContext();
 
 // Créez un composant Provider
 export const SongProvider = ({ children }) => {
-  const song = new Audio.Sound();
-  const [Next, setNext] = useState(song);
-  const [Previous, setPrevious] = useState(song);
+  const song = new Audio.Sound()//.getStatusAsync().then((result) => {return result.isLoaded}) ;
+  const [index, setIndex]= useState(0);
+  
 
   return (
     <SongContext.Provider
-      value={{ song, Next, setNext, setPrevious, Previous }}
+      value={{ song, Library,index, setIndex }}
     >
       {children}
     </SongContext.Provider>

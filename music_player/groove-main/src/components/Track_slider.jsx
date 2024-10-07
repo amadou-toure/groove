@@ -51,7 +51,6 @@ export default function Track_slider() {
     fetchDuration(); // Call the fetchDuration function when the component mounts or when 'song' changes
   }, [getDuration()]); // Listen for changes to the song object
 
-  console.log(Duration);
 
   return (
     <View style={{ display: "flex", flexDirection: "column", width: "90%" }}>
