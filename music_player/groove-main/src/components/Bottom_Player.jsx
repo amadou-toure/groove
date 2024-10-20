@@ -7,11 +7,14 @@ import { useContext } from "react";
 import Track_slider from "./Track_slider";
 import { SongContext } from "../store";
 import { SettingContext } from "../store/Settings";
+import usePlayerControls from "../hooks/usePlayerControls";
 import { Card, Button } from "react-native-paper";
 export default function () {
   const button_size = 32;
-  const { song, activeTrack } = useContext(SongContext);
+  const { song, activeTrack, isPlaying, setIsPlaying } =
+    useContext(SongContext);
   const { Main_color } = useContext(SettingContext);
+  const { handlePlayButton } = usePlayerControls();
 
   return (
     <View
@@ -63,9 +66,9 @@ export default function () {
             flex: 0.3,
           }}
         >
-          <Pressable>
+          <Pressable onPress={handlePlayButton}>
             <Ionicons
-              name="play"
+              name={isPlaying ? "pause" : "play"}
               size={button_size}
               color={Main_color.Button_color}
             />

@@ -10,6 +10,7 @@ export const SongProvider = ({ children }) => {
   const [isOpened, setIsOpened] = useState(true);
   const song = useRef(new Audio.Sound()).current; //.getStatusAsync().then((result) => {return result.isLoaded}) ;
   const [index, setIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [activeTrack, setActiveTrack] = useState(Library[0]);
   //song.getStatusAsync().then((result) => {return result.isLoaded}) ;
   return (
@@ -23,6 +24,8 @@ export const SongProvider = ({ children }) => {
         setIsOpened,
         activeTrack,
         setActiveTrack,
+        isPlaying,
+        setIsPlaying,
       }}
     >
       {children}

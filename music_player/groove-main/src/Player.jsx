@@ -11,12 +11,12 @@ import Constants from "expo-constants";
 import { useSong } from "./hooks/useSong";
 
 export default function Player({ navigation, route }) {
-  const { song, isOpened, setIsOpened } = useContext(SongContext);
+  const { song, isOpened, setIsOpened, isPlaying, setIsPlaying } =
+    useContext(SongContext);
   const { Artwork, Title, Artist, Status } = route.params;
   const button_size = 32;
   const [isLiked, setIsLiked] = React.useState(false);
   //you need to fix this later: i should not have to use this use state(isPlaying)
-  const [isPlaying, setIsPlaying] = React.useState(true);
   const [Shuffle, setShuffle] = React.useState(false);
   const [Replay, setReplay] = React.useState(false);
   const { getStatus, getTrackUrl, unloadUrl, loadUrl, playNext, playPrevious } =
