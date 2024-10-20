@@ -76,7 +76,12 @@ export default function Player({ navigation, route }) {
               },
             ]}
             children={
-              <Pressable onPress={() => navigation.goBack()}>
+              <Pressable
+                onPress={() => {
+                  navigation.goBack();
+                  setIsOpened(true);
+                }}
+              >
                 <Ionicons
                   name="chevron-back"
                   size={button_size}

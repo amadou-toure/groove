@@ -11,13 +11,14 @@ import Search from "../components/Search_Bar";
 import { useSong } from "../hooks/useSong";
 
 export default Track = ({ navigation }) => {
-  const { song,setIsOpened } = useContext(SongContext);
+  const { song, setIsOpened } = useContext(SongContext);
   const { Main_color } = useContext(SettingContext);
   const { getTrackUrl, loadUrl, unloadUrl } = useSong();
 
   const songList = library;
 
   const handlePress = async (item) => {
+    setIsOpened(false);
     await unloadUrl();
     if (song._loaded != true) {
       navigation.navigate("Player", {
