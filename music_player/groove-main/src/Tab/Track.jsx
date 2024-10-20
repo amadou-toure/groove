@@ -11,7 +11,7 @@ import Search from "../components/Search_Bar";
 import { useSong } from "../hooks/useSong";
 
 export default Track = ({ navigation }) => {
-  const { song } = useContext(SongContext);
+  const { song,setIsOpened } = useContext(SongContext);
   const { Main_color } = useContext(SettingContext);
   const { getTrackUrl, loadUrl, unloadUrl } = useSong();
 
@@ -38,6 +38,7 @@ export default Track = ({ navigation }) => {
       await song.playAsync();
     }
   };
+  //setIsOpened(true)
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: Main_color.bg_color }]}

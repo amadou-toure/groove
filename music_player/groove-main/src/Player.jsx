@@ -11,8 +11,7 @@ import Constants from "expo-constants";
 import { useSong } from "./hooks/useSong";
 
 export default function Player({ navigation, route }) {
-  const { song, Next, setNext, Previous, setPrevious } =
-    useContext(SongContext);
+  const { song, isOpened, setIsOpened } = useContext(SongContext);
   const { Artwork, Title, Artist, Status } = route.params;
   const button_size = 32;
   const [isLiked, setIsLiked] = React.useState(false);
@@ -23,16 +22,21 @@ export default function Player({ navigation, route }) {
   const { getStatus, getTrackUrl, unloadUrl, loadUrl, playNext, playPrevious } =
     useSong();
   const Duration = getStatus();
+  //setIsOpened(false);
 
   //console.log(Duration);
   const handlePlayButton = async () => {
-    const status = await song.getStatusAsync();
-    if (!status.isPlaying) {
-      await song.playAsync();
-      setIsPlaying(true);
-    } else {
-      await song.pauseAsync();
-      setIsPlaying(false);
+    try {
+      const status = await song.getStatusAsync();
+      if (!status.isPlaying) {
+        await song.playAsync();
+        setIsPlaying(true);
+      } else {
+        await song.pauseAsync();
+        setIsPlaying(false);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   const handleSkipButton = async () => {

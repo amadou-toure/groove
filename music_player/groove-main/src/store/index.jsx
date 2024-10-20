@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useRef, useState } from "react";
 import { Audio } from "expo-av";
 import Library from "../../assets/data/Library.json";
 
@@ -7,13 +7,23 @@ export const SongContext = createContext();
 
 // Créez un composant Provider
 export const SongProvider = ({ children }) => {
-  const song = new Audio.Sound()//.getStatusAsync().then((result) => {return result.isLoaded}) ;
-  const [index, setIndex]= useState(0);
-  
-
+  const [isOpened, setIsOpened] = useState(true);
+  const song = useRef(new Audio.Sound()).current; //.getStatusAsync().then((result) => {return result.isLoaded}) ;
+  const [index, setIndex] = useState(0);
+  const [activeTrack, setActiveTrack] = useState(Library[0]);
+  //song.getStatusAsync().then((result) => {return result.isLoaded}) ;
   return (
     <SongContext.Provider
-      value={{ song, Library,index, setIndex }}
+      value={{
+        song,
+        Library,
+        index,
+        setIndex,
+        isOpened,
+        setIsOpened,
+        activeTrack,
+        setActiveTrack,
+      }}
     >
       {children}
     </SongContext.Provider>

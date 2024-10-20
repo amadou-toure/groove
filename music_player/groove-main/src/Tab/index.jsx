@@ -18,7 +18,8 @@ import Constants from "expo-constants";
 const Tab = createBottomTabNavigator();
 
 export default function () {
-  const song = useContext(SongContext);
+  const{ song,isOpened, setIsOpened } = useContext(SongContext);
+  
   const { Main_color } = useContext(SettingContext);
   return (
     <>
@@ -51,8 +52,11 @@ export default function () {
             marginLeft: 9,
             marginRight: 9,
             marginBottom: 9,
-            borderRadius: 25,
-            height: "10%",
+            borderTopEndRadius:isOpened?0:20,
+            borderTopStartRadius:isOpened?0:20,
+            borderBottomStartRadius:20,
+            borderBottomEndRadius:20,
+            height: 100,
             overflow: "hidden",
             borderColor: "transparent",
             backgroundColor: Main_color.Third_color,
