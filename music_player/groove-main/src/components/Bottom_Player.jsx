@@ -14,7 +14,7 @@ export default function () {
   const { song, activeTrack, isPlaying, setIsPlaying } =
     useContext(SongContext);
   const { Main_color } = useContext(SettingContext);
-  const { handlePlayButton } = usePlayerControls();
+  const { handlePlayButton, handleNextButton } = usePlayerControls();
 
   return (
     <View
@@ -73,7 +73,7 @@ export default function () {
               color={Main_color.Button_color}
             />
           </Pressable>
-          <Pressable>
+          <Pressable onPress={handleNextButton}>
             <Ionicons
               name="play-skip-forward"
               size={button_size}
