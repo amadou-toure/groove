@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Bottom_tab from "./Tab";
 import Player from "./Player";
@@ -9,7 +10,7 @@ import { SettingContext } from "./store/Settings";
 import { useContext } from "react";
 import Detail from "./Detail";
 import { Platform } from "react-native";
-
+import { useNavigationState } from "@react-navigation/native";
 import Bottom_Player from "./components/Bottom_Player";
 import { SongContext } from "./store";
 
@@ -18,6 +19,7 @@ const Stack = createNativeStackNavigator();
 export default function index() {
   const { Main_color } = useContext(SettingContext);
   const { song, isOpened, setIsOpened } = useContext(SongContext);
+
   return (
     <View style={{ flex: 1, backgroundColor: Main_color.bg_color }}>
       <StatusBar
@@ -36,20 +38,20 @@ export default function index() {
             <Stack.Screen name="Player" component={Player} />
           </Stack.Group>
         </Stack.Navigator>
+        {isOpened ? (
+          <View
+            style={{
+              position: "absolute",
+              marginTop: 655,
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Bottom_Player />
+          </View>
+        ) : null}
       </NavigationContainer>
-      {isOpened ? (
-        <View
-          style={{
-            position: "absolute",
-            marginTop: 655,
-            width: "100%",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Bottom_Player />
-        </View>
-      ) : null}
     </View>
   );
 }

@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import React, { useEffect, useContext } from "react";
-import Slider from "@react-native-community/slider";
-//import { Slider } from "react-native-elements";
+//import Slider from "@react-native-community/slider";
+import { Slider } from "react-native-elements";
 import { Animated } from "react-native";
 import { Main_color } from "../../global_style";
 import { SongContext } from "../store";

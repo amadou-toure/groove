@@ -5,8 +5,7 @@ import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 const useSong = () => {
   const songList = Library;
-  const { song, activeTrack, setActiveTrack, setIndex, index } =
-    useContext(SongContext);
+  const { song, activeTrack, setActiveTrack } = useContext(SongContext);
 
   const getStatus = async () => {
     const status = await song.getStatusAsync();
@@ -32,9 +31,7 @@ const useSong = () => {
   const getTrackUrl = (item) => {
     updateActiveTrack(item);
     const newIndex = songList.indexOf(item);
-    setIndex(newIndex);
     if (newIndex !== -1) {
-      setIndex(newIndex);
       return songList[newIndex].url;
     }
 

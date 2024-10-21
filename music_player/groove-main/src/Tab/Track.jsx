@@ -1,6 +1,6 @@
 import { Text, View, FlatList, Image, Pressable } from "react-native";
 import { SafeAreaView } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { styles } from "../../global_style";
 import no_artwork from "../../assets/images/no_artwork.png";
 import library from "../../assets/data/Library.json";
@@ -11,31 +11,24 @@ import Search from "../components/Search_Bar";
 import { useSong } from "../hooks/useSong";
 
 export default Track = ({ navigation }) => {
-  const { song, setIsOpened } = useContext(SongContext);
+  const { song, setIsOpened, isOpend, setActiveTrack, activeTrack } =
+    useContext(SongContext);
   const { Main_color } = useContext(SettingContext);
   const { getTrackUrl, loadUrl, unloadUrl } = useSong();
 
   const songList = library;
 
   const handlePress = async (item) => {
+    console.log(activeTrack);
+    setActiveTrack(item);
     setIsOpened(false);
     await unloadUrl();
     if (song._loaded != true) {
-      navigation.navigate("Player", {
-        Artist: item.artist,
-        Artwork: item.artwork,
-        Title: item.title,
-        Status: await song.getStatusAsync(),
-      });
+      navigation.navigate("Player");
       await loadUrl(getTrackUrl(item));
       await song.playAsync();
     } else {
-      navigation.navigate("Player", {
-        Artist: item.artist,
-        Artwork: item.artwork,
-        Title: item.title,
-        Status: await song.getStatusAsync(),
-      });
+      navigation.navigate("Player");
       await song.playAsync();
     }
   };

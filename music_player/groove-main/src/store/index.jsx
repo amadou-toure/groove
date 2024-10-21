@@ -7,25 +7,28 @@ export const SongContext = createContext();
 
 // Créez un composant Provider
 export const SongProvider = ({ children }) => {
-  const [isOpened, setIsOpened] = useState(true);
+  const [isOpened, setIsOpened] = useState(false);
   const song = useRef(new Audio.Sound()).current; //.getStatusAsync().then((result) => {return result.isLoaded}) ;
-  const [index, setIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [activeTrack, setActiveTrack] = useState(Library[0]);
+  const [Shuffle, setShuffle] = useState(false);
+  const [Repeat, setRepeat] = useState(false);
   //song.getStatusAsync().then((result) => {return result.isLoaded}) ;
   return (
     <SongContext.Provider
       value={{
         song,
         Library,
-        index,
-        setIndex,
         isOpened,
         setIsOpened,
         activeTrack,
         setActiveTrack,
         isPlaying,
         setIsPlaying,
+        Shuffle,
+        setShuffle,
+        Repeat,
+        setRepeat,
       }}
     >
       {children}

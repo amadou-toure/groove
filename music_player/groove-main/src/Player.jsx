@@ -9,47 +9,31 @@ import Slider from "./components/Track_slider";
 import { BlurView } from "expo-blur";
 import Constants from "expo-constants";
 import { useSong } from "./hooks/useSong";
+import usePlayerControls from "./hooks/usePlayerControls";
 
 export default function Player({ navigation, route }) {
-  const { song, isOpened, setIsOpened, isPlaying, setIsPlaying } =
-    useContext(SongContext);
-  const { Artwork, Title, Artist, Status } = route.params;
+  const { handlePlayButton, handleNextButton, handlePrevButton } =
+    usePlayerControls();
+  const {
+    setIsOpened,
+    isPlaying,
+    setShuffle,
+    Shuffle,
+    repeat,
+    setRepeat,
+    activeTrack,
+  } = useContext(SongContext);
+  const { artwork, title, artist } = activeTrack;
   const button_size = 32;
   const [isLiked, setIsLiked] = React.useState(false);
   //you need to fix this later: i should not have to use this use state(isPlaying)
-  const [Shuffle, setShuffle] = React.useState(false);
-  const [Replay, setReplay] = React.useState(false);
-  const { getStatus, getTrackUrl, unloadUrl, loadUrl, playNext, playPrevious } =
-    useSong();
+  const { getStatus } = useSong();
   const Duration = getStatus();
-  //setIsOpened(false);
-
-  //console.log(Duration);
-  const handlePlayButton = async () => {
-    try {
-      const status = await song.getStatusAsync();
-      if (!status.isPlaying) {
-        await song.playAsync();
-        setIsPlaying(true);
-      } else {
-        await song.pauseAsync();
-        setIsPlaying(false);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const handleSkipButton = async () => {
-    await playNext();
-  };
-  const handlePreviousButton = async () => {
-    await playPrevious();
-  };
 
   return (
     <ImageBackground
       style={{ flex: 1 }}
-      source={Artwork ? { uri: Artwork } : no_artwork}
+      source={artwork ? { uri: artwork } : no_artwork}
       blurRadius={70}
       resizeMode="cover"
     >
@@ -92,10 +76,10 @@ export default function Player({ navigation, route }) {
           />
         </View>
         <View style={styles.Track_info}>
-          {Artwork ? (
+          {artwork ? (
             <Image
               style={{ width: 350, height: 350, borderRadius: 15 }}
-              source={{ uri: Artwork }}
+              source={{ uri: artwork }}
             />
           ) : (
             <Image
@@ -188,9 +172,9 @@ export default function Player({ navigation, route }) {
                 width: "80%",
               }}
             >
-              <Text style={styles.Primary_text}>{Title}</Text>
-              {Artist ? (
-                <Text style={styles.Secondary_text}>{Artist}</Text>
+              <Text style={styles.Primary_text}>{title}</Text>
+              {artist ? (
+                <Text style={styles.Secondary_text}>{artist}</Text>
               ) : (
                 <Text style={styles.Secondary_text}>Unknown</Text>
               )}
@@ -220,7 +204,7 @@ export default function Player({ navigation, route }) {
               flexDirection: "row",
             }}
           >
-            <Pressable onPress={handlePreviousButton}>
+            <Pressable onPress={handlePrevButton}>
               <Ionicons
                 name="play-skip-back"
                 size={button_size}
@@ -249,7 +233,7 @@ export default function Player({ navigation, route }) {
                 </Pressable>
               }
             />
-            <Pressable onPress={handleSkipButton}>
+            <Pressable onPress={handleNextButton}>
               <Ionicons
                 name="play-skip-forward"
                 size={button_size}
