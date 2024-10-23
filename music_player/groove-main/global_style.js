@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { Platform } from "expo-modules-core";
 
 const Main_color = {
   Primary_color: "#EBE6E4",
@@ -44,9 +45,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "stretch",
     justifyContent: "space-around",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    width: "95%",
+    borderTopLeftRadius: Platform.OS === "ios" ? 60 : 20,
+    borderTopRightRadius: Platform.OS === "ios" ? 60 : 20,
+    width: "96%",
     height: 130,
     //padding: 10,
   },

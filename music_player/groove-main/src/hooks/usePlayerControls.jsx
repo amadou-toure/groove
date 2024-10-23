@@ -11,6 +11,7 @@ const usePlayerControls = () => {
     setActiveTrack,
     Shuffle,
     repeat,
+    activeTrack,
   } = useContext(SongContext);
   const { getCurrentIndex, getTrackUrl, unloadUrl, loadUrl } = useSong();
   const handlePlayButton = async () => {
@@ -27,17 +28,30 @@ const usePlayerControls = () => {
       console.log(error);
     }
   };
+  const shuffle = async (playlist) => {
+    const nextSong = playlist[Math.floor(Math.random() * playlist.length)];
+    return nextSong;
+  };
   const handleNextButton = async () => {
-    //const salt = Math.floor(Math.random() * (Library.length - 1));
-    // const nextSong = Shuffle
-    //   ? getTrackUrl(Library[salt])
-    //   : getTrackUrl(Library[getCurrentIndex() + 1]);
-    const nextSong = getTrackUrl(Library[getCurrentIndex() + 1]);
     await unloadUrl();
-    await loadUrl(nextSong);
-    setActiveTrack(Library[getCurrentIndex() + 1]);
-    await song.playAsync();
-    //console.log(salt);
+    if (Shuffle === true) {
+      const nextSong = await shuffle(Library);
+      setActiveTrack(nextSong);
+      await loadUrl(getTrackUrl(nextSong));
+      await song.playAsync();
+    } else {
+      if (getCurrentIndex() + 1 < Library.length) {
+        const nextSong = getTrackUrl(Library[getCurrentIndex() + 1]);
+        setActiveTrack(Library[getCurrentIndex() + 1]);
+        await loadUrl(nextSong);
+        await song.playAsync();
+      } else {
+        const nextSong = getTrackUrl(Library[0]);
+        setActiveTrack(Library[0]);
+        await loadUrl(nextSong);
+        await song.playAsync();
+      }
+    }
   };
   const handlePrevButton = async () => {
     const prevSong = getTrackUrl(Library[getCurrentIndex() - 1]);

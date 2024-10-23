@@ -29,7 +29,6 @@ export default function Player({ navigation, route }) {
   //you need to fix this later: i should not have to use this use state(isPlaying)
   const { getStatus } = useSong();
   const Duration = getStatus();
-
   return (
     <ImageBackground
       style={{ flex: 1 }}

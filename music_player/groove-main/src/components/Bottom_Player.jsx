@@ -10,6 +10,7 @@ import { SettingContext } from "../store/Settings";
 import usePlayerControls from "../hooks/usePlayerControls";
 import { useNavigation } from "@react-navigation/native";
 import { useNavigationState } from "@react-navigation/native";
+
 export default function () {
   const navigation = useNavigation();
   const route = useNavigationState((state) => state); // 2 is the index of the player route

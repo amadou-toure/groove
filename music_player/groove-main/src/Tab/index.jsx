@@ -15,11 +15,12 @@ import { Text, SafeAreaView } from "react-native";
 import { styles } from "../../global_style.js";
 import { StyleSheet } from "react-native";
 import Constants from "expo-constants";
+import { Platform } from "react-native";
 const Tab = createBottomTabNavigator();
 
 export default function () {
-  const{ song,isOpened, setIsOpened } = useContext(SongContext);
-  
+  const { song, isOpened, setIsOpened } = useContext(SongContext);
+
   const { Main_color } = useContext(SettingContext);
   return (
     <>
@@ -52,10 +53,14 @@ export default function () {
             marginLeft: 9,
             marginRight: 9,
             marginBottom: 9,
-            borderTopEndRadius:isOpened?0:20,
-            borderTopStartRadius:isOpened?0:20,
-            borderBottomStartRadius:20,
-            borderBottomEndRadius:20,
+            borderTopEndRadius: isOpened ? 0 : Platform.OS === "ios" ? 60 : 20,
+            borderTopStartRadius: isOpened
+              ? 0
+              : Platform.OS === "ios"
+              ? 60
+              : 20,
+            borderBottomStartRadius: Platform.OS === "ios" ? 60 : 20,
+            borderBottomEndRadius: Platform.OS === "ios" ? 60 : 20,
             height: 100,
             overflow: "hidden",
             borderColor: "transparent",
@@ -85,32 +90,16 @@ export default function () {
             }
             return (
               <>
-                <Ionicons
-                  name={iconName}
-                  size={30}
-                  color={iconColor}
-                />
+                <Ionicons name={iconName} size={30} color={iconColor} />
               </>
             );
           },
         })}
       >
-        <Tab.Screen
-          name="Home"
-          component={Home}
-        />
-        <Tab.Screen
-          name="Library"
-          component={Track}
-        />
-        <Tab.Screen
-          name="Favorite"
-          component={Favorite}
-        />
-        <Tab.Screen
-          name="Setting"
-          component={Setting}
-        />
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Library" component={Track} />
+        <Tab.Screen name="Favorite" component={Favorite} />
+        <Tab.Screen name="Setting" component={Setting} />
       </Tab.Navigator>
     </>
   );
