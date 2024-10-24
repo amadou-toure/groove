@@ -57,7 +57,7 @@ export default function Track_slider() {
         minimumValue={0}
         maximumValue={Duration}
         step={1}
-        progress={value}
+        value={value}
         minimumTrackTintColor={Main_color.Secondary_color}
         maximumTrackTintColor={Main_color.Button_color}
         trackStyle={{ height: 6, backgroundColor: Main_color.Secondary_color }}
@@ -67,6 +67,8 @@ export default function Track_slider() {
           backgroundColor: Main_color.Secondary_color,
         }}
         onSlidingComplete={(result) => UpdatePosition(result)}
+        // onValueChange={(result) => UpdatePosition(result)}
+        // onSlidingComplete={(result) => UpdatePosition(result)}
       />
       <View
         style={{

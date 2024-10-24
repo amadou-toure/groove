@@ -19,7 +19,6 @@ export default Track = ({ navigation }) => {
   const songList = library;
 
   const handlePress = async (item) => {
-    console.log(activeTrack);
     setActiveTrack(item);
     setIsOpened(false);
     await unloadUrl();
@@ -32,7 +31,6 @@ export default Track = ({ navigation }) => {
       await song.playAsync();
     }
   };
-  //setIsOpened(true)
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: Main_color.bg_color }]}

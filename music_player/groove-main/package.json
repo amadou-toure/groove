@@ -12,6 +12,7 @@
   "dependencies": {
     "@expo/cli": "^0.18.29",
     "@expo/vector-icons": "^14.0.1",
+    "@gorhom/bottom-sheet": "^5",
     "@react-native-community/blur": "^4.4.0",
     "@react-native-community/slider": "4.4.2",
     "@react-navigation/bottom-tabs": "^6.6.1",
@@ -36,7 +37,7 @@
     "react-native": "0.73.6",
     "react-native-awesome-slider": "^2.5.3",
     "react-native-elements": "^3.4.3",
-    "react-native-gesture-handler": "~2.14.0",
+    "react-native-gesture-handler": "^2.20.1",
     "react-native-image-colors": "^2.4.0",
     "react-native-paper": "^5.12.3",
     "react-native-reanimated": "^3.16.1",

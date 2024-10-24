@@ -4,9 +4,9 @@ import { styles, Main_color } from "../../global_style";
 import { SongContext } from "../store";
 
 export default function Home() {
-  const song = useContext(SongContext);
+  const { song } = useContext(SongContext);
   const handlePress = () => {
-    console.log(song._loaded);
+    // console.log(song._loaded);
   };
   return (
     <View style={styles.container}>

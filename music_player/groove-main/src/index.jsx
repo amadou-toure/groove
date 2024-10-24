@@ -1,16 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Bottom_tab from "./Tab";
 import Player from "./Player";
 import { SettingContext } from "./store/Settings";
 import { useContext } from "react";
 import Detail from "./Detail";
-import { Platform } from "react-native";
-import { useNavigationState } from "@react-navigation/native";
 import Bottom_Player from "./components/Bottom_Player";
 import { SongContext } from "./store";
 
@@ -35,9 +32,14 @@ export default function index() {
           <Stack.Screen name="Tab" component={Bottom_tab} />
           <Stack.Screen name="Detail" component={Detail} />
           <Stack.Group screenOptions={{ presentation: "modal" }}>
-            <Stack.Screen name="Player" component={Player} />
+            <Stack.Screen
+              name="Player"
+              component={Player}
+              options={{ gestureDirection: "vertical" }}
+            />
           </Stack.Group>
         </Stack.Navigator>
+
         {isOpened ? (
           <View
             style={{
