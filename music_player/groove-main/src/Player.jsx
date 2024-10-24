@@ -10,6 +10,7 @@ import { BlurView } from "expo-blur";
 import Constants from "expo-constants";
 import { useSong } from "./hooks/useSong";
 import usePlayerControls from "./hooks/usePlayerControls";
+import Spinner from "./Animations/Spinner";
 
 export default function Player({ navigation, route }) {
   const { handlePlayButton, handleNextButton, handlePrevButton } =
@@ -224,11 +225,12 @@ export default function Player({ navigation, route }) {
               ]}
               children={
                 <Pressable onPress={handlePlayButton}>
-                  <Ionicons
+                  {/* <Ionicons
                     name={isPlaying ? "pause" : "play"}
                     size={50}
                     color={Main_color.Secondary_color}
-                  />
+                  /> */}
+                  <Spinner />
                 </Pressable>
               }
             />
