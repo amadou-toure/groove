@@ -9,6 +9,7 @@ import { SettingContext } from "../store/Settings";
 import { SongContext } from "../store";
 import Search from "../components/Search_Bar";
 import { useSong } from "../hooks/useSong";
+import Is_Playing from "../Animations/Is_Playing";
 
 export default Track = ({ navigation }) => {
   const { song, setIsOpened, isOpend, setActiveTrack, activeTrack } =
@@ -37,49 +38,81 @@ export default Track = ({ navigation }) => {
     >
       <Search />
       <FlatList
-        style={{ flex: 0.8 }}
+        style={{
+          flex: 1,
+          width: "100%",
+        }}
         data={songList}
         renderItem={({ item }) => (
           <Pressable
             onPress={() => handlePress(item)}
             style={{
-              display: "flex",
-              flexDirection: "row",
-              marginTop: "10%",
-              paddingBottom: "5%",
+              width: "100%",
+              justifyContent: "center",
               alignItems: "center",
-              borderBottomColor: Main_color.Third_color,
-              borderBottomWidth: 1,
+
+              backgroundColor:
+                activeTrack === item
+                  ? Main_color.Third_color
+                  : Main_color.bg_color,
             }}
           >
-            {item.artwork ? (
-              <Image
-                style={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: 15,
-                  marginRight: 20,
-                }}
-                source={{ uri: item.artwork }}
-              />
-            ) : (
-              <Image
-                style={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: 15,
-                  marginRight: 20,
-                }}
-                source={no_artwork}
-              />
-            )}
-            <View>
-              <Text style={styles.Primary_text}>{item.title}</Text>
-              {item.artist ? (
-                <Text style={styles.Secondary_text}>{item.artist}</Text>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                paddingTop: "10%",
+                paddingBottom: "5%",
+                width: "90%",
+                alignItems: "flex-start",
+                justifyContent: "center",
+
+                // alignItems: "center",
+                borderBottomWidth: 1,
+              }}
+            >
+              {item.artwork ? (
+                <Image
+                  style={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: 15,
+                    marginRight: 20,
+                  }}
+                  source={{ uri: item.artwork }}
+                />
               ) : (
-                <Text style={styles.Secondary_text}>Unknown</Text>
+                <Image
+                  style={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: 15,
+                    marginRight: 20,
+                  }}
+                  source={no_artwork}
+                />
               )}
+              <View>
+                <Text style={styles.Primary_text} numberOfLines={1}>
+                  {item.title}
+                </Text>
+                {item.artist ? (
+                  <Text style={styles.Secondary_text}>{item.artist}</Text>
+                ) : (
+                  <Text style={styles.Secondary_text}>Unknown</Text>
+                )}
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                  alignItems: "flex-start",
+                  flex: 1,
+                }}
+              >
+                {activeTrack === item ? <Is_Playing /> : null}
+              </View>
             </View>
           </Pressable>
         )}
