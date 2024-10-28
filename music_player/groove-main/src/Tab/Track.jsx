@@ -1,9 +1,8 @@
 import { Text, View, FlatList, Image, Pressable } from "react-native";
 import { SafeAreaView } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import { styles } from "../../global_style";
 import no_artwork from "../../assets/images/no_artwork.png";
-import library from "../../assets/data/Library.json";
 import { useContext } from "react";
 import { SettingContext } from "../store/Settings";
 import { SongContext } from "../store";
@@ -12,12 +11,10 @@ import { useSong } from "../hooks/useSong";
 import Is_Playing from "../Animations/Is_Playing";
 
 export default Track = ({ navigation }) => {
-  const { song, setIsOpened, isOpend, setActiveTrack, activeTrack } =
+  const { song, setIsOpened, setActiveTrack, activeTrack, searchResults } =
     useContext(SongContext);
   const { Main_color } = useContext(SettingContext);
   const { getTrackUrl, loadUrl, unloadUrl } = useSong();
-
-  const songList = library;
 
   const handlePress = async (item) => {
     setActiveTrack(item);
@@ -42,7 +39,7 @@ export default Track = ({ navigation }) => {
           flex: 1,
           width: "100%",
         }}
-        data={songList}
+        data={searchResults}
         renderItem={({ item }) => (
           <Pressable
             onPress={() => handlePress(item)}

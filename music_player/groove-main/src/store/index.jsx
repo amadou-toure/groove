@@ -13,10 +13,13 @@ export const SongProvider = ({ children }) => {
   const [activeTrack, setActiveTrack] = useState(Library[0]);
   const [Shuffle, setShuffle] = useState(false);
   const [Repeat, setRepeat] = useState(false);
+  const [searchResults, setSearchResults] = useState(Library);
   //song.getStatusAsync().then((result) => {return result.isLoaded}) ;
   return (
     <SongContext.Provider
       value={{
+        searchResults,
+        setSearchResults,
         song,
         Library,
         isOpened,
